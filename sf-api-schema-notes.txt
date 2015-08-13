@@ -1,0 +1,143 @@
+General API notes
+
+To use a row identifier to look up a row, simply append it to the resource endpoint for that dataset. For example, to look up row 1 from the White House Visitor Records dataset using its row identifier:
+
+    https://open.whitehouse.gov/resource/p86s-ychb/1.json?
+
+In contrast, the USGS Earthquakes dataset is configured to use a publisher-specified identifier. To look up the earthquake with the ID 00388609:
+
+    https://soda.demo.socrata.com/resource/4tka-6guv/00388609.json?
+
+Heads Up! The order of the results of a query are not implicitly ordered, so if you're paging, make sure you provide an $order clause or at a minimum $order=:id. That will guarantee that the order of your results will be stable as you page through the dataset.
+
+
+
+
+Mobile Food Schedule: https://data.sfgov.org/Economy-and-Community/Mobile-Food-Schedule/jjew-r69b
+API endpoint: https://data.sfgov.org/resource/jjew-r69b.json
+
+Problem with this one: LOTS of overlapping entries with different times (weird ones, ten-minute slots or whatever) for the same permit. One way of dealing with this might be to do a search that captures just the unique ones, or bundles the times into one value that can be interpreted by meal (11 am - 1 pm slots = lunch, for instance). Applicant name may not be the same as the truck name (lots of catering). 
+
+Advantages: includes day of the week; unique cart ID in permit number; includes addresses and various location details; includes truck description text (little rote, but useful); created and modified dates; x/y and lat/long. 
+
+Needs: to be able to collapse entries that duplicate company and location without losing unique information possibly available in each row - the key may be a combination of business name, location ID, and cnn. 
+
+DayOrder
+Numeric code for day of week
+DayOfWeekStr
+String value of day of week
+starttime
+
+endtime
+This and former both rather arbitrary and unhelpful
+Wait: combine this into a single piece of information and use it to fill out times - pluck first time and last for a single to provide start and end times. Inspiration: those PDFs attached to the map view entries
+    Structure: Day > Address > Hours in a list
+    Use to create range of hours
+    Could also collapse multiple instances of a truck onto individual truck page, then present hours open at each location on each day
+    Text for individual day, or more visual view for whole week, maybe kind of like Google calendar.
+permit
+Truck permit number
+PermitLocation
+Probably admin; do not use
+locationdesc
+Can includes times as well as detailed truck location information
+optionaltext
+Food type details; could be reprintable, may need formatting (some spaces missing after punctuation)
+locationid
+Setup location
+scheduleid
+Looks like the unique key for this table
+start24
+More inaccurate-looking setup/opening information, but considering 24-hour time used, may be better option for guessing at meals served
+end24
+See above
+CNN
+Not needed here
+Addr_Date_Create
+Date address created; do not use
+Addr_Date_Modified
+Do not use
+block
+This and lot: city-specific location information, I think. See if map API will use.
+lot
+
+ColdTruck
+Y = do not cook on site; N = cook on site
+Applicant
+Possibly the truck name; sometimes not, I don't think
+X
+Coordinates here on down
+Y
+
+Latitude
+
+Longitude
+
+Location
+Lat and long together
+
+-------
+Mobile Food Facility Permit: https://data.sfgov.org/Economy-and-Community/Mobile-Food-Facility-Permit/rqzj-sfat
+
+Pros: lists location address, not admin address; states truck or food cart; location ID may be unique on this one and ties to pretty specific blocks/addresses; 
+
+Less than pro: permit IDs are not unique in this db; no time information
+
+Need: sort out all expired; 
+
+
+locationid
+Setup location; in prior table too
+Applicant
+Business name, if not actual truck name
+FacilityType
+Truck, cart, or unknown
+cnn
+
+LocationDescription
+Where truck is located for each location permit
+Address
+Where admin is located
+blocklot
+Location info
+block
+Location info
+lot
+Location info
+permit
+Location-specific permit
+Status
+Approved or expired
+FoodItems
+
+X
+Coordinates
+Y
+
+Latitude
+
+Longitude
+
+Schedule
+
+NOISent
+Admin
+Approved
+Date
+Received
+Date
+PriorPermit
+Admin
+ExpirationDate
+Useful; remove record when date comes
+Location
+Paired coordinates
+
+-------
+
+Mobile Food Permit Map: https://data.sfgov.org/Economy-and-Community/Mobile-Food-Permit-Map/px6q-wjh5
+
+Uses schedule data; applies to map.
+Their PDFs of schedule: quite good. Is there a way to extract schedule information or see how they use it to make those data pulls? Sample URL: http://bsm.sfdpw.org/PermitsTracker/reports/report.aspx?title=schedule&report=rptSchedule&params=permit=15MFF-0062&ExportPDF=1&Filename=15MFF-0062_schedule.pdf
+
+

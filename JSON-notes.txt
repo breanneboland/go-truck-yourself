@@ -1,0 +1,7 @@
+var movielisttext = "{"movielist": ["Friday the 13th", "Friday the 13th Part 2", "Friday the 13th Part III", "Friday the 13th: The Final Chapter", "Friday the 13th: A New Beginning"]}";
+First, we are making a new variable to hold the text. That variable is named movielisttext. Since it’s a JavaScript string, the whole JSON text is surrounded by quotes. Next, any quotes inside the JSON have to be “escaped” with a backslash in front. Otherwise, JavaScript gets confused about which quotes we want for display and which quotes are part of the programming.
+
+Now that we have a JavaScript variable holding our JSON text, we need to convert it to a JSON object. I promised we’d be able to do this with one line of code. Here it is:
+
+var jsonobj = eval("(" + movielisttext + ")");
+

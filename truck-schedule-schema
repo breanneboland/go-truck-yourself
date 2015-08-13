@@ -1,0 +1,123 @@
+    id 
+    permit_number #from city; may not use
+    name #from city; Applicant
+    description #optionaltext; pull from any day
+    url 
+    menu_link 
+    twitter_handle 
+    tweets 
+    price_range 
+    sunday_morning_times #morning is before 10 am; times are gathered from start24 and end24 values; make a list, sort
+    sunday_morning_location #all of these are from the city; locationdesc for this day
+    sunday_morning_coordinates #combine latitude and longitude into a two-item list
+    sunday_morning_location_id #probably won't use, but... locationid by day
+    sunday_morning_schedule_id #same as above, but scheduleid
+    sunday_lunch_times 
+    sunday_lunch_location 
+    sunday_lunch_coordinates 
+    sunday_lunch_location_id 
+    sunday_lunch_schedule_id 
+    sunday_dinner_times 
+    sunday_dinner_location 
+    sunday_dinner_coordinates 
+    sunday_dinner_location_id 
+    sunday_dinner_schedule_id 
+    monday_morning_times  
+    monday_morning_location 
+    monday_morning_coordinates 
+    monday_morning_location_id 
+    monday_morning_schedule_id 
+    monday_lunch_times 
+    monday_lunch_location 
+    monday_lunch_coordinates 
+    monday_lunch_location_id 
+    monday_lunch_schedule_id 
+    monday_dinner_times 
+    monday_dinner_location 
+    monday_dinner_coordinates 
+    monday_dinner_location_id 
+    monday_dinner_schedule_id 
+    tuesday_morning_times 
+    tuesday_morning_location 
+    tuesday_morning_coordinates 
+    tuesday_morning_location_id 
+    tuesday_morning_schedule_id 
+    tuesday_lunch_times  
+    tuesday_lunch_location 
+    tuesday_lunch_coordinates 
+    tuesday_lunch_location_id 
+    tuesday_lunch_schedule_id 
+    tuesday_dinner_times 
+    tuesday_dinner_location 
+    tuesday_dinner_coordinates 
+    tuesday_dinner_location_id 
+    tuesday_dinner_schedule_id 
+    wednesday_morning_times  
+    wednesday_morning_location 
+    wednesday_morning_coordinates 
+    wednesday_morning_location_id 
+    wednesday_morning_schedule_id 
+    wednesday_lunch_times 
+    wednesday_lunch_location 
+    wednesday_lunch_coordinates 
+    wednesday_lunch_location_id 
+    wednesday_lunch_schedule_id 
+    wednesday_dinner_times  
+    wednesday_dinner_location 
+    wednesday_dinner_coordinates 
+    wednesday_dinner_location_id 
+    wednesday_dinner_schedule_id 
+    thursday_morning_times 
+    thursday_morning_location 
+    thursday_morning_coordinates 
+    thursday_morning_location_id 
+    thursday_morning_schedule_id 
+    thursday_lunch_times 
+    thursday_lunch_location 
+    thursday_lunch_coordinates 
+    thursday_lunch_location_id 
+    thursday_lunch_schedule_id 
+    thursday_dinner_times 
+    thursday_dinner_location 
+    thursday_dinner_coordinates 
+    thursday_dinner_location_id 
+    thursday_dinner_schedule_id 
+    friday_morning_times 
+    friday_morning_location 
+    friday_morning_coordinates 
+    friday_morning_location_id 
+    friday_morning_schedule_id 
+    friday_lunch_times 
+    friday_lunch_location 
+    friday_lunch_coordinates 
+    friday_lunch_location_id 
+    friday_lunch_schedule_id 
+    friday_dinner_times 
+    friday_dinner_location 
+    friday_dinner_coordinates 
+    friday_dinner_location_id 
+    friday_dinner_schedule_id 
+    saturday_morning_times 
+    saturday_morning_location 
+    saturday_morning_coordinates 
+    saturday_morning_location_id 
+    saturday_morning_schedule_id 
+    saturday_lunch_times  
+    saturday_lunch_location 
+    saturday_lunch_coordinates 
+    saturday_lunch_location_id 
+    saturday_lunch_schedule_id 
+    saturday_dinner_times 
+    saturday_dinner_location 
+    saturday_dinner_coordinates 
+    saturday_dinner_location_id 
+    saturday_dinner_schedule_id 
+    food_type 
+    key_words 
+    description  #from city
+    yelp_url 
+    yelp_rating  #depends on how Yelp provides that data
+    yelp_images 
+    payment_method 
+
+

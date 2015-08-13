@@ -1,0 +1,636 @@
+                location_description = row[2].decode('utf8', errors='ignore')
+
+Last login: Tue Aug 11 17:06:03 on ttys001
+Breannes-MacBook-Air:twilioworkshop breanneboland$ cd ..
+Breannes-MacBook-Air:Desktop breanneboland$ cd go-truck-yourself
+Breannes-MacBook-Air:go-truck-yourself breanneboland$ ls
+JSON-notes.txt              secret.sh
+Mobile_Food_Facility_Permit (1).csv server.py
+Mobile_Food_Schedule.csv        sf-api-schema-notes.txt
+Truck-object-structure.txt      survey-processing
+db-creation             templates
+env                 truck-schedule-schema
+mobile_food_permits.csv
+Breannes-MacBook-Air:go-truck-yourself breanneboland$ cd db-creation
+Breannes-MacBook-Air:db-creation breanneboland$ ls
+Mobile_Food_Schedule.csv    mobile_food_permits.csv     server.pyc
+food-truck-db_seed.py       server.py
+Breannes-MacBook-Air:db-creation breanneboland$ cd ..
+Breannes-MacBook-Air:go-truck-yourself breanneboland$ source env/bin/activate
+(env)Breannes-MacBook-Air:go-truck-yourself breanneboland$ cd db-creation/
+(env)Breannes-MacBook-Air:db-creation breanneboland$ python food-truck-db_seed.py
+Connected to DB.
+(env)Breannes-MacBook-Air:db-creation breanneboland$ python -i food-truck-db_seed.py
+Connected to DB.
+>>> db.create_all()
+>>> Truck_schedule.make_truck_schedule()
+Hello!  100
+Hello!  200
+Hello!  300
+Hello!  400
+Hello!  500
+Hello!  600
+Hello!  700
+Hello!  800
+Hello!  900
+Hello!  1000
+Hello!  1100
+Hello!  1200
+Hello!  1300
+Hello!  1400
+Hello!  1500
+Hello!  1600
+Hello!  1700
+Hello!  1800
+Hello!  1900
+Hello!  2000
+Hello!  2100
+Hello!  2200
+Hello!  2300
+Hello!  2400
+Hello!  2500
+Hello!  2600
+Hello!  2700
+Hello!  2800
+Hello!  2900
+Hello!  3000
+Hello!  3100
+Hello!  3200
+Hello!  3300
+Hello!  3400
+Hello!  3500
+Hello!  3600
+Hello!  3700
+Hello!  3800
+Hello!  3900
+Hello!  4000
+Hello!  4100
+Hello!  4200
+Hello!  4300
+Hello!  4400
+Hello!  4500
+Hello!  4600
+Hello!  4700
+Hello!  4800
+Hello!  4900
+Hello!  5000
+Hello!  5100
+Hello!  5200
+Hello!  5300
+Hello!  5400
+Hello!  5500
+Hello!  5600
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "food-truck-db_seed.py", line 97, in make_truck_schedule
+    truck_id_tuple = db.session.query(Truck.id).filter_by(name=truck_name).first()
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2445, in first
+    ret = list(self[0:1])
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2281, in __getitem__
+    return list(res)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    self.session._autoflush()
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1292, in _autoflush
+    util.raise_from_cause(e)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1282, in _autoflush
+    self.flush()
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2004, in flush
+    self._flush(objects)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2122, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/util/langhelpers.py", line 60, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2086, in _flush
+    flush_context.execute()
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 373, in execute
+    rec.execute(self)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 532, in execute
+    uow
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 174, in save_obj
+    mapper, table, insert)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 781, in _emit_insert_statements
+    execute(statement, params)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1341, in _handle_dbapi_exception
+    exc_info
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 450, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely) (psycopg2.DataError) invalid byte sequence for encoding "UTF8": 0xa2
+ [SQL: 'INSERT INTO trucks_schedule_information (truck_id, truck_name, day_of_week, permit_number, location_description, extra_text, location_id, schedule_id, start_time, end_time, coordinates) VALUES (%(truck_id)s, %(truck_name)s, %(day_of_week)s, %(permit_number)s, %(location_description)s, %(extra_text)s, %(location_id)s, %(schedule_id)s, %(start_time)s, %(end_time)s, %(coordinates)s) RETURNING trucks_schedule_information.schedule_line_id'] [parameters: {'extra_text': "Artisan Pizzas (Margherita, Yukon Potato, Zoe's Pepperoni, Funghi, Brocolli Rabe, Bacon Kale,  Arugula) and Drinks.", 'start_time': '10:00', 'truck_id': 210, 'schedule_id': '750445', 'day_of_week': 'Monday', 'location_description': 'a truck 45_\xa2\xac\xc4\xac\xf4 north from the SW corner of Pine and Sansome (west side)', 'end_time': '14:00', 'permit_number': '15MFF-0097', 'coordinates': ['37.79240212', '-122.4010628'], 'location_id': '633619', 'truck_name': "Casey's Pizza, LLC"}]
+>>> quit()
+(env)Breannes-MacBook-Air:db-creation breanneboland$ python -i food-truck-db_seed.py
+  File "food-truck-db_seed.py", line 3
+    set client_encoding to 'latin1'
+                      ^
+SyntaxError: invalid syntax
+>>> quit()
+(env)Breannes-MacBook-Air:db-creation breanneboland$ python -i food-truck-db_seed.py
+Traceback (most recent call last):
+  File "food-truck-db_seed.py", line 3, in <module>
+    cur.execute("SET CLIENT_ENCODING TO 'LATIN1';")
+NameError: name 'cur' is not defined
+>>> quit()
+(env)Breannes-MacBook-Air:db-creation breanneboland$ python
+Python 2.7.10 (v2.7.10:15c95b7d81dc, May 23 2015, 09:33:12) 
+[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> s= "a truck 45_¢¨ƒ¨Ù north from the SW corner of Pine and Sansome (west side)"
+>>> s
+'a truck 45_\xc2\xa2\xc2\xa8\xc6\x92\xc2\xa8\xc3\x99 north from the SW corner of Pine and Sansome (west side)'
+>>> s= u"a truck 45_¢¨ƒ¨Ù north from the SW corner of Pine and Sansome (west side)"
+>>> s
+u'a truck 45_\xa2\xa8\u0192\xa8\xd9 north from the SW corner of Pine and Sansome (west side)'
+>>> s.decode
+<built-in method decode of unicode object at 0x1007a22a0>
+>>> s.decode('utf-8')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/encodings/utf_8.py", line 16, in decode
+    return codecs.utf_8_decode(input, errors, True)
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 11-15: ordinal not in range(128)
+>>> s.encode('utf-8')
+'a truck 45_\xc2\xa2\xc2\xa8\xc6\x92\xc2\xa8\xc3\x99 north from the SW corner of Pine and Sansome (west side)'
+>>> help(s.encode)
+
+>>> s.encode('utf-8', errors='ignore')
+'a truck 45_\xc2\xa2\xc2\xa8\xc6\x92\xc2\xa8\xc3\x99 north from the SW corner of Pine and Sansome (west side)'
+>>> s.decode('utf-8', errors='ignore')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/encodings/utf_8.py", line 16, in decode
+    return codecs.utf_8_decode(input, errors, True)
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 11-15: ordinal not in range(128)
+>>> s.decode('ascii', errors='ignore')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 11-15: ordinal not in range(128)
+>>> s.encode('ascii', errors='ignore')
+'a truck 45_ north from the SW corner of Pine and Sansome (west side)'
+>>> s2="héllo"
+>>> s2.encode('ascii', errors='ignore')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 1: ordinal not in range(128)
+>>> s2=u"héllo"
+>>> s2.encode('ascii', errors='ignore')
+'hllo'
+>>> s2.encode('utf-8', errors='ignore')
+'h\xc3\xa9llo'
+>>> s.encode('utf-8', errors='ignore')
+'a truck 45_\xc2\xa2\xc2\xa8\xc6\x92\xc2\xa8\xc3\x99 north from the SW corner of Pine and Sansome (west side)'
+>>> ss=s.encode('utf-8', errors='ignore')
+>>> ss=s
+>>> s= u"a truck 45_¢¨ƒ¨Ù north from the SW corner of Pine and Sansome (west side)"
+>>> ss==s
+True
+>>> s.encode('latin1', errors='ignore')
+'a truck 45_\xa2\xa8\xa8\xd9 north from the SW corner of Pine and Sansome (west side)'
+>>> s2.encode('latin1', errors='ignore')
+'h\xe9llo'
+>>> ss=s.encode('latin1', errors='ignore')
+>>> ss == s
+__main__:1: UnicodeWarning: Unicode equal comparison failed to convert both arguments to Unicode - interpreting them as being unequal
+False
+>>> ss
+'a truck 45_\xa2\xa8\xa8\xd9 north from the SW corner of Pine and Sansome (west side)'
+>>> ss=s.encode('latin1', errors='ignore')
+>>> quit()
+(env)Breannes-MacBook-Air:db-creation breanneboland$ python -i food-truck-db_seed.py
+Connected to DB.
+>>> Truck_schedule.make_truck_schedule()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "food-truck-db_seed.py", line 97, in make_truck_schedule
+    truck_id_tuple = db.session.query(Truck.id).filter_by(name=truck_name).first()
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2445, in first
+    ret = list(self[0:1])
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2281, in __getitem__
+    return list(res)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    self.session._autoflush()
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1292, in _autoflush
+    util.raise_from_cause(e)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1282, in _autoflush
+    self.flush()
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2004, in flush
+    self._flush(objects)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2122, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/util/langhelpers.py", line 60, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2086, in _flush
+    flush_context.execute()
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 373, in execute
+    rec.execute(self)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 532, in execute
+    uow
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 174, in save_obj
+    mapper, table, insert)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 781, in _emit_insert_statements
+    execute(statement, params)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1341, in _handle_dbapi_exception
+    exc_info
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 450, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely) (psycopg2.ProgrammingError) relation "trucks_schedule_information" does not exist
+LINE 1: INSERT INTO trucks_schedule_information (truck_id, truck_nam...
+                    ^
+ [SQL: 'INSERT INTO trucks_schedule_information (truck_id, truck_name, day_of_week, permit_number, location_description, extra_text, location_id, schedule_id, start_time, end_time, coordinates) VALUES (%(truck_id)s, %(truck_name)s, %(day_of_week)s, %(permit_number)s, %(location_description)s, %(extra_text)s, %(location_id)s, %(schedule_id)s, %(start_time)s, %(end_time)s, %(coordinates)s) RETURNING trucks_schedule_information.schedule_line_id'] [parameters: {'extra_text': 'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks', 'start_time': '10:00', 'truck_id': 18, 'schedule_id': '821904', 'day_of_week': 'Monday', 'location_description': 'Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm', 'end_time': '11:00', 'permit_number': '15MFF-0119', 'coordinates': ['37.77070298', '-122.3907904'], 'location_id': '645813', 'truck_name': "Natan's Catering"}]
+>>> db.create_all()
+>>> Truck_schedule.make_truck_schedule()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "food-truck-db_seed.py", line 97, in make_truck_schedule
+    truck_id_tuple = db.session.query(Truck.id).filter_by(name=truck_name).first()
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2445, in first
+    ret = list(self[0:1])
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2281, in __getitem__
+    return list(res)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2516, in __iter__
+    return self._execute_and_instances(context)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2529, in _execute_and_instances
+    close_with_result=True)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2520, in _connection_from_session
+    **kw)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 882, in connection
+    execution_options=execution_options)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 887, in _connection_for_bind
+    engine, execution_options)
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 313, in _connection_for_bind
+    self._assert_active()
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 214, in _assert_active
+    % self._rollback_exception
+sqlalchemy.exc.InvalidRequestError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely) (psycopg2.ProgrammingError) relation "trucks_schedule_information" does not exist
+LINE 1: INSERT INTO trucks_schedule_information (truck_id, truck_nam...
+                    ^
+ [SQL: 'INSERT INTO trucks_schedule_information (truck_id, truck_name, day_of_week, permit_number, location_description, extra_text, location_id, schedule_id, start_time, end_time, coordinates) VALUES (%(truck_id)s, %(truck_name)s, %(day_of_week)s, %(permit_number)s, %(location_description)s, %(extra_text)s, %(location_id)s, %(schedule_id)s, %(start_time)s, %(end_time)s, %(coordinates)s) RETURNING trucks_schedule_information.schedule_line_id'] [parameters: {'extra_text': 'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks', 'start_time': '10:00', 'truck_id': 18, 'schedule_id': '821904', 'day_of_week': 'Monday', 'location_description': 'Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm', 'end_time': '11:00', 'permit_number': '15MFF-0119', 'coordinates': ['37.77070298', '-122.3907904'], 'location_id': '645813', 'truck_name': "Natan's Catering"}]
+>>> db.create_all()
+>>> ^D
+(env)Breannes-MacBook-Air:db-creation breanneboland$ python -i food-truck-db_seed.py
+Connected to DB.
+>>> Truck_schedule.make_truck_schedule()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "food-truck-db_seed.py", line 117, in make_truck_schedule
+    location_description = row[2].encode('latin1', errors='ignore')
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xa2 in position 11: ordinal not in range(128)
+>>> quit()
+(env)Breannes-MacBook-Air:db-creation breanneboland$ python -i food-truck-db_seed.py
+Connected to DB.
+>>> Truck_schedule.make_truck_schedule()
+Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm
+Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks
+Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm
+Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks
+10:05am-10:10am, 11:30am-11:40am
+Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies
+Set-up at 696 Amador St: 7:00am-8:00am, 10:20am-10:30am, 11:40am-11:50am
+Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies
+10:30am-12:00pm
+Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water
+Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm
+Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm
+10:30am-1:30am
+Cold Truck: packaged sandwiches, pitas, breakfast, cold and hot drinks, snacks
+a truck 45_????? north from the SW corner of Pine and Sansome (west side)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "food-truck-db_seed.py", line 117, in make_truck_schedule
+    location_description = row[2].encode('latin1', errors='ignore')
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xa2 in position 11: ordinal not in range(128)
+>>> s=;Monday   15MFF-0119      Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm    Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks  645813  821904  10:00   11:00   Y  Natan's Catering        37.77070298     -122.3907904
+  File "<stdin>", line 1
+    s=;Monday   15MFF-0119  Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm    Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks   645813  821904  10:00   11:00   Y   Natan's Catering    37.77070298 -122.3907904
+      ^
+SyntaxError: invalid syntax
+>>> Monday      15MFF-0119      Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm    Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks  645813  823091  10:00   11:00   Y  Natan's Catering        37.77070298     -122.3907904
+  File "<stdin>", line 1
+    Monday  15MFF-0119  Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm    Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks   645813  823091  10:00   11:00   Y   Natan's Catering    37.77070298 -122.3907904
+            ^
+SyntaxError: invalid syntax
+>>> Monday      15MFF-0077      10:05am-10:10am, 11:30am-11:40am        Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies  632684     747598  10:00   12:00   Y       Quan Catering   37.78642965     -122.3980693
+  File "<stdin>", line 1
+    Monday  15MFF-0077  10:05am-10:10am, 11:30am-11:40am    Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies    632684  747598  10:00   12:00   Y   Quan Catering   37.78642965 -122.3980693
+            ^
+SyntaxError: invalid syntax
+>>> Monday      15MFF-0077      Set-up at 696 Amador St: 7:00am-8:00am, 10:20am-10:30am, 11:40am-11:50am   Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies  632682  747583  10:00   12:00   Y       Quan Catering   37.74752315     -122.3871758
+  File "<stdin>", line 1
+    Monday  15MFF-0077  Set-up at 696 Amador St: 7:00am-8:00am, 10:20am-10:30am, 11:40am-11:50am    Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies    632682  747583  10:00   12:00   Y   Quan Catering   37.74752315 -122.3871758
+            ^
+SyntaxError: invalid syntax
+>>> Monday      15MFF-0047      10:30am-12:00pm Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water      629199  737658  10:00   12:00   N       Linda's Catering        37.78310884        -122.3935593
+  File "<stdin>", line 1
+    Monday  15MFF-0047  10:30am-12:00pm Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water   629199  737658  10:00   12:00   N   Linda's Catering    37.78310884 -122.3935593
+            ^
+SyntaxError: invalid syntax
+>>> Monday      14MFF-0001      10:20-11:50am (M-Sa), 12:00pm-2:00pm (M-F)      Cold Truck: sandwiches, drinks, snacks, candy, hot coffee  509481  58572   10:00   12:00   Y       Sun Rise Catering       37.78639276        -122.3957261
+  File "<stdin>", line 1
+    Monday  14MFF-0001  10:20-11:50am (M-Sa), 12:00pm-2:00pm (M-F)  Cold Truck: sandwiches, drinks, snacks, candy, hot coffee   509481  58572   10:00   12:00   Y   Sun Rise Catering   37.7863927-122.3957261
+            ^
+SyntaxError: invalid syntax
+>>> Monday      15MFF-0058      Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm       Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm  630928  738206  10:00   13:00   Y       Mini Mobile Food Catering  37.73957679     -122.4069095
+  File "<stdin>", line 1
+    Monday  15MFF-0058  Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm   Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm   630928  738206  10:00   13:00   Y   Mini Mobile Food Catering   37.73957679 -122.4069095
+            ^
+SyntaxError: invalid syntax
+>>> Monday      15MFF-0122      Set-up at 2275 Jennings St: 10:30am-2:00pm (M-Sa), 8:00am-3:00pm (Sa)   Mexican food: tacos, burritos, tortas, various meat and chicken and fish plate, chile relleno plate, fish plate, bread, flan, rice pudding, bread, fruit juice, vegetable juice, coffee, tea  646998  823132  10:00   14:00      N       Tacos El Primo  37.72629791     -122.3891501
+  File "<stdin>", line 1
+    Monday  15MFF-0122  Set-up at 2275 Jennings St: 10:30am-2:00pm (M-Sa), 8:00am-3:00pm (Sa)   Mexican food: tacos, burritos, tortas, various meat and chicken and fish plate, chile relleno plate, fish plate, bread, flan, rice pudding, bread, fruit juice, vegetable juice, coffee, tea    646998  823132  10:00   14:00   N   Tacos El Primo  37.72629791 -122.3891501
+            ^
+SyntaxError: invalid syntax
+>>> Monday      15MFF-0062      10:30am-1:30am  Cold Truck: packaged sandwiches, pitas, breakfast, cold and hot drinks, snacks     631710  738766  10:00   14:00   Y       Munch A Bunch   37.79095506     -122.4324986
+  File "<stdin>", line 1
+    Monday  15MFF-0062  10:30am-1:30am  Cold Truck: packaged sandwiches, pitas, breakfast, cold and hot drinks, snacks  631710  738766  10:00   14:00   Y   Munch A Bunch   37.79095506 -122.4324986
+            ^
+SyntaxError: invalid syntax
+>>> Monday      15MFF-0097      a truck 45_¢¨ƒ¨Ù north from the SW corner of Pine and Sansome (west side)  Artisan Pizzas (Margherita, Yukon Potato, Zoe's Pepperoni, Funghi, Brocolli Rabe, Bacon Kale,  Arugula) and Drinks.        633619  750445  10:00   14:00   N       Casey's Pizza, LLC      37.79240212     -122.4010628
+  File "<stdin>", line 1
+    Monday  15MFF-0097  a truck 45_¢¨ƒ¨Ù north from the SW corner of Pine and Sansome (west side)   Artisan Pizzas (Margherita, Yukon Potato, Zoe's Pepperoni, Funghi, Brocolli Rabe, Bacon Kale,  Arugula) and Drinks. 633619  750445  10:00   14:00   N   Casey's Pizza, LLC  37.79240212 -122.4010628
+            ^
+SyntaxError: invalid syntax
+>>> Monday      14MFF-0125              Corndogs, fried burrito, rice placet, soda, water, sandwiches, soup, noodle plates 570016  737140  10:00   14:00   N       Eva's Catering  37.72286457     -122.3896927
+  File "<stdin>", line 1
+    Monday  14MFF-0125      Corndogs, fried burrito, rice placet, soda, water, sandwiches, soup, noodle plates  570016  737140  10:00   14:00   N   Eva's Catering  37.72286457 -122.3896927
+            ^
+SyntaxError: invalid syntax
+>>> Monday      15MFF-0009      Approximately 40 Ft from the intersection of Market St, Beale St, and Pine St. Truck will be located on the east side of Davis St  Mantu, Balani, Guabili pillow, lamb shank       654165     823192  10:00   14:00   N       Kamdesh Truck   37.79294422     -122.3974232
+  File "<stdin>", line 1
+    Monday  15MFF-0009  Approximately 40 Ft from the intersection of Market St, Beale St, and Pine St. Truck will be located on the east side of Davis St   Mantu, Balani, Guabili pillow, lamb shank   654165  823192  10:00   14:00   N   Kamdesh Truck   37.79294422 -122.3974232
+            ^
+SyntaxError: invalid syntax
+>>> Monday      15MFF-0037      10:30am-1:30pm  St. Louis Style Ribs, Pulled Pork Sandwich, Smoked Brisket, Smoked Chicken Drumsticks, Spinach Salad, Cole Slaw, Baked Beans, Mashed Potatoes, Grilled Asparagus, Mac & Cheese, Potato Salad, Buttermil Pie, Soda, Water      627205  737545  10:00   14:00   N       Covered Dish Productions, LLC. dba. The Rib Whip   37.78852982     -122.3961405
+  File "<stdin>", line 1
+    Monday  15MFF-0037  10:30am-1:30pm  St. Louis Style Ribs, Pulled Pork Sandwich, Smoked Brisket, Smoked Chicken Drumsticks, Spinach Salad, Cole Slaw, Baked Beans, Mashed Potatoes, Grilled Asparagus, Mac & Cheese, Potato Salad, Buttermil Pie, Soda, Water    627205  737545  10:00   14:00   N   Covered Dish Productions, LLC. dba. The Rib Whip    37.78852982 -122.3961405
+            ^
+SyntaxError: invalid syntax
+>>> Monday      14MFF-0131      Truck located on East side of Front Street approximately 20' from Vallejo St. intersection.        Rotisserie Chicken, Ribs, Kickass Salad, Potatos w/fat dripping, chicken wrap.  607989     737182  10:00   14:00   N       Roadside Rotisserie Corporation / Country Grill 37.79881157     -122.3996647
+  File "<stdin>", line 1
+    Monday  14MFF-0131  Truck located on East side of Front Street approximately 20' from Vallejo St. intersection. Rotisserie Chicken, Ribs, Kickass Salad, Potatos w/fat dripping, chicken wrap.  607989  737182  10:00   14:00   N   Roadside Rotisserie Corporation / Country Grill 37.79881157 -122.3996647
+            ^
+SyntaxError: invalid syntax
+>>> Monday      14MFF-0134      On Pine St, 51ft west of Front St       Lobster rolls, crab rolls, clam chowder, lobster bisque, chips, lemonade, drinks   632803  750191  10:00   15:00   N       Lobsta Truck    37.79245793        -122.3986341
+  File "<stdin>", line 1
+    Monday  14MFF-0134  On Pine St, 51ft west of Front St   Lobster rolls, crab rolls, clam chowder, lobster bisque, chips, lemonade, drinks    632803  750191  10:00   15:00   N   Lobsta Truck    37.79245793 -122.3986341
+            ^
+SyntaxError: invalid syntax
+>>> Monday      15MFF-0047      10:00am-3:00pm  Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water      629198  737653  10:00   15:00   N       Linda's Catering        37.77730003        -122.3948128
+  File "<stdin>", line 1
+    Monday  15MFF-0047  10:00am-3:00pm  Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water   629198  737653  10:00   15:00   N   Linda's Catering    37.77730003 -122.3948128
+            ^
+SyntaxError: invalid syntax
+>>> Monday      11MFF-0039      Located on the South Wst Corner of Market & Beale.  2nd Yellow Parking Metered Space.      Indian Style: BBQ, Variety of Curries, Rice, Wraps, Breads (Naan, Rotis, Parathas), Desserts, Pizza.  Beverages, Condiments, Indian Soups, Salads & Appetizer Varieties.   305715  399     10:00   15:00      N       Bombay Blvd.    37.79210339     -122.397586
+  File "<stdin>", line 1
+    Monday  11MFF-0039  Located on the South Wst Corner of Market & Beale.  2nd Yellow Parking Metered Space.   Indian Style: BBQ, Variety of Curries, Rice, Wraps, Breads (Naan, Rotis, Parathas), Desserts, Pizza.  Beverages, Condiments, Indian Soups, Salads & Appetizer Varieties.    305715  399 10:00   15:00   N   Bombay Blvd.    37.79210339 -122.397586
+            ^
+SyntaxError: invalid syntax
+>>> Monday      15MFF-0016      Truck located in the first parking space 15' NE of the 1st St / Howard St intersection.    Sliders, Tater Tots, Beverages  624243  737262  10:00   15:00   N       Slider Shack, LLC. 37.78925263     -122.3952263
+  File "<stdin>", line 1
+    Monday  15MFF-0016  Truck located in the first parking space 15' NE of the 1st St / Howard St intersection. Sliders, Tater Tots, Beverages  624243  737262  10:00   15:00   N   Slider Shack, LLC.37.78925263   -122.3952263
+            ^
+SyntaxError: invalid syntax
+>>> Monday      15MFF-0121      Pushcart located on the California St sidewalk 27LF East of Mongomery St.  kebabs, halal gyro, grilled halal meat, refreshments    646168  823104  10:00   15:00   N       Halal Cart, LLC    37.7928879      -122.4027042
+  File "<stdin>", line 1
+    Monday  15MFF-0121  Pushcart located on the California St sidewalk 27LF East of Mongomery St.   kebabs, halal gyro, grilled halal meat, refreshments    646168  823104  10:00   15:00   N   Halal Cart, LLC 37.7928879  -122.4027042
+            ^
+SyntaxError: invalid syntax
+>>> Monday      14MFF-0134      On California St, 46ft east of Leidesdorff St   Lobster rolls, crab rolls, clam chowder, lobster bisque, chips, lemonade, drinks   632811  750196  10:00   15:00   N       Lobsta Truck       37.79304909     -122.
+  File "<stdin>", line 1
+    Monday  14MFF-0134  On California St, 46ft east of Leidesdorff St   Lobster rolls, crab rolls, clam chowder, lobster bisque, chips, lemonade, drinks    632811  750196  10:00   15:00   N   Lobsta Truck    37.79304909 -122.
+            ^
+SyntaxError: invalid syntax
+>>> 
+>>> 
+>>> s='a truck 45_¢¨ƒ¨Ù north from the SW corner of Pine and Sansome (west side)'
+>>> s.encode('latin1')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xc2 in position 11: ordinal not in range(128)
+>>> s.encode('latin1', errors='ignore')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xc2 in position 11: ordinal not in range(128)
+>>> s=u'a truck 45_¢¨ƒ¨Ù north from the SW corner of Pine and Sansome (west side)'
+>>> s.encode('latin1', errors='ignore')
+'a truck 45_\xa2\xa8\xa8\xd9 north from the SW corner of Pine and Sansome (west side)'
+>>> s='a truck 45_¢¨ƒ¨Ù north from the SW corner of Pine and Sansome (west side)'
+>>> s.decode('utf8')
+u'a truck 45_\xa2\xa8\u0192\xa8\xd9 north from the SW corner of Pine and Sansome (west side)'
+>>> s.decode('utf8') == s
+food-truck-db_seed.py:1: UnicodeWarning: Unicode equal comparison failed to convert both arguments to Unicode - interpreting them as being unequal
+  import csv
+False
+>>> ^D
+(env)Breannes-MacBook-Air:db-creation breanneboland$ python -i food-truck-db_seed.py
+Connected to DB.
+>>> Truck_schedule.make_truck_schedule()
+Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm
+Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks
+Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm
+Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks
+10:05am-10:10am, 11:30am-11:40am
+Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies
+Set-up at 696 Amador St: 7:00am-8:00am, 10:20am-10:30am, 11:40am-11:50am
+Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies
+10:30am-12:00pm
+Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water
+Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm
+Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm
+10:30am-1:30am
+Cold Truck: packaged sandwiches, pitas, breakfast, cold and hot drinks, snacks
+a truck 45_????? north from the SW corner of Pine and Sansome (west side)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "food-truck-db_seed.py", line 117, in make_truck_schedule
+    location_description = row[2].encode('latin1', errors='ignore')
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xa2 in position 11: ordinal not in range(128)
+>>> ^D
+(env)Breannes-MacBook-Air:db-creation breanneboland$ python -i food-truck-db_seed.py
+Connected to DB.
+>>> Truck_schedule.make_truck_schedule()
+Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm
+Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks
+Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm
+Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks
+10:05am-10:10am, 11:30am-11:40am
+Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies
+Set-up at 696 Amador St: 7:00am-8:00am, 10:20am-10:30am, 11:40am-11:50am
+Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies
+10:30am-12:00pm
+Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water
+Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm
+Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm
+10:30am-1:30am
+Cold Truck: packaged sandwiches, pitas, breakfast, cold and hot drinks, snacks
+a truck 45_????? north from the SW corner of Pine and Sansome (west side)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "food-truck-db_seed.py", line 118, in make_truck_schedule
+    location_description = row[2].decode('utf8')
+  File "/Users/breanneboland/Desktop/go-truck-yourself/env/lib/python2.7/encodings/utf_8.py", line 16, in decode
+    return codecs.utf_8_decode(input, errors, True)
+UnicodeDecodeError: 'utf8' codec can't decode byte 0xa2 in position 11: invalid start byte
+>>> ^D
+(env)Breannes-MacBook-Air:db-creation breanneboland$ python -i food-truck-db_seed.py
+Connected to DB.
+>>> Truck_schedule.make_truck_schedule()
+Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm
+Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks
+Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm
+Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks
+10:05am-10:10am, 11:30am-11:40am
+Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies
+Set-up at 696 Amador St: 7:00am-8:00am, 10:20am-10:30am, 11:40am-11:50am
+Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies
+10:30am-12:00pm
+Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water
+Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm
+Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm
+10:30am-1:30am
+Cold Truck: packaged sandwiches, pitas, breakfast, cold and hot drinks, snacks
+a truck 45_????? north from the SW corner of Pine and Sansome (west side)
+Artisan Pizzas (Margherita, Yukon Potato, Zoe's Pepperoni, Funghi, Brocolli Rabe, Bacon Kale,  Arugula) and Drinks.
+
+Corndogs, fried burrito, rice placet, soda, water, sandwiches, soup, noodle plates
+10:30am-1:30pm
+St. Louis Style Ribs, Pulled Pork Sandwich, Smoked Brisket, Smoked Chicken Drumsticks, Spinach Salad, Cole Slaw, Baked Beans, Mashed Potatoes, Grilled Asparagus, Mac & Cheese, Potato Salad, Buttermil Pie, Soda, Water
+Truck located on East side of Front Street approximately 20' from Vallejo St. intersection.
+Rotisserie Chicken, Ribs, Kickass Salad, Potatos w/fat dripping, chicken wrap.
+10:00am-3:00pm
+Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water
+Pushcart located on the California St sidewalk 27LF East of Mongomery St.
+kebabs, halal gyro, grilled halal meat, refreshments
+Whoa, you made more objects! And they apparently committed again! Woohoo!
+>>> ^D
+(env)Breannes-MacBook-Air:db-creation breanneboland$ python -i food-truck-db_seed.py
+Connected to DB.
+>>> Truck_schedule.make_truck_schedule()
+Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm
+Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks
+Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm
+Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks
+10:05am-10:10am, 11:30am-11:40am
+Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies
+Set-up at 696 Amador St: 7:00am-8:00am, 10:20am-10:30am, 11:40am-11:50am
+Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies
+10:30am-12:00pm
+Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water
+Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm
+Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm
+10:30am-1:30am
+Cold Truck: packaged sandwiches, pitas, breakfast, cold and hot drinks, snacks
+a truck 45_????? north from the SW corner of Pine and Sansome (west side)
+Artisan Pizzas (Margherita, Yukon Potato, Zoe's Pepperoni, Funghi, Brocolli Rabe, Bacon Kale,  Arugula) and Drinks.
+
+Corndogs, fried burrito, rice placet, soda, water, sandwiches, soup, noodle plates
+10:30am-1:30pm
+St. Louis Style Ribs, Pulled Pork Sandwich, Smoked Brisket, Smoked Chicken Drumsticks, Spinach Salad, Cole Slaw, Baked Beans, Mashed Potatoes, Grilled Asparagus, Mac & Cheese, Potato Salad, Buttermil Pie, Soda, Water
+Truck located on East side of Front Street approximately 20' from Vallejo St. intersection.
+Rotisserie Chicken, Ribs, Kickass Salad, Potatos w/fat dripping, chicken wrap.
+10:00am-3:00pm
+Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water
+Pushcart located on the California St sidewalk 27LF East of Mongomery St.
+kebabs, halal gyro, grilled halal meat, refreshments
+Whoa, you made more objects! And they apparently committed again! Woohoo!
+>>> Truck_schedule.query.all()
+[<__main__.Truck_schedule object at 0x1039acdd0>, <__main__.Truck_schedule object at 0x1039ace10>, <__main__.Truck_schedule object at 0x1039accd0>, <__main__.Truck_schedule object at 0x1039aced0>, <__main__.Truck_schedule object at 0x1039acb50>, <__main__.Truck_schedule object at 0x1039acbd0>, <__main__.Truck_schedule object at 0x1039aca10>, <__main__.Truck_schedule object at 0x1039aca50>, <__main__.Truck_schedule object at 0x1039ac2d0>, <__main__.Truck_schedule object at 0x1039ac750>, <__main__.Truck_schedule object at 0x1039ac590>, <__main__.Truck_schedule object at 0x1039ac410>, <__main__.Truck_schedule object at 0x103957f90>, <__main__.Truck_schedule object at 0x103957ed0>, <__main__.Truck_schedule object at 0x1039baa10>, <__main__.Truck_schedule object at 0x1039ba750>, <__main__.Truck_schedule object at 0x1039ba890>, <__main__.Truck_schedule object at 0x1039ba810>, <__main__.Truck_schedule object at 0x1039ba850>, <__main__.Truck_schedule object at 0x1039ba550>, <__main__.Truck_schedule object at 0x1039ba410>, <__main__.Truck_schedule object at 0x1039ba450>, <__main__.Truck_schedule object at 0x1039ba290>, <__main__.Truck_schedule object at 0x1039ba210>, <__main__.Truck_schedule object at 0x1039bacd0>, <__main__.Truck_schedule object at 0x1039babd0>]
+>>> Truck_schedule.query.first()
+<__main__.Truck_schedule object at 0x1039acdd0>
+>>> Truck_schedule.query.first().location_description
+u'Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm'
+>>> Truck_schedule.query.first().extra_text
+u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks'
+>>> Truck_schedule.query.last().extra_text
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'BaseQuery' object has no attribute 'last'
+>>> Truck_schedule.query.all()[-1].extra_text
+u'kebabs, halal gyro, grilled halal meat, refreshments'
+>>> db.session.query(Truck_schedule.extra_info).all()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: type object 'Truck_schedule' has no attribute 'extra_info'
+>>> db.session.query(Truck_schedule.extra_text).all()
+[(u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies',), (u'Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies',), (u'Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water',), (u'Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm',), (u'Cold Truck: packaged sandwiches, pitas, breakfast, cold and hot drinks, snacks',), (u"Artisan Pizzas (Margherita, Yukon Potato, Zoe's Pepperoni, Funghi, Brocolli Rabe, Bacon Kale,  Arugula) and Drinks.",), (u'Corndogs, fried burrito, rice placet, soda, water, sandwiches, soup, noodle plates',), (u'St. Louis Style Ribs, Pulled Pork Sandwich, Smoked Brisket, Smoked Chicken Drumsticks, Spinach Salad, Cole Slaw, Baked Beans, Mashed Potatoes, Grilled Asparagus, Mac & Cheese, Potato Salad, Buttermil Pie, Soda, Water',), (u'Rotisserie Chicken, Ribs, Kickass Salad, Potatos w/fat dripping, chicken wrap.',), (u'Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water',), (u'kebabs, halal gyro, grilled halal meat, refreshments',), (u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies',), (u'Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies',), (u'Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water',), (u'Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm',), (u'Cold Truck: packaged sandwiches, pitas, breakfast, cold and hot drinks, snacks',), (u"Artisan Pizzas (Margherita, Yukon Potato, Zoe's Pepperoni, Funghi, Brocolli Rabe, Bacon Kale,  Arugula) and Drinks.",), (u'Corndogs, fried burrito, rice placet, soda, water, sandwiches, soup, noodle plates',), (u'St. Louis Style Ribs, Pulled Pork Sandwich, Smoked Brisket, Smoked Chicken Drumsticks, Spinach Salad, Cole Slaw, Baked Beans, Mashed Potatoes, Grilled Asparagus, Mac & Cheese, Potato Salad, Buttermil Pie, Soda, Water',), (u'Rotisserie Chicken, Ribs, Kickass Salad, Potatos w/fat dripping, chicken wrap.',), (u'Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water',), (u'kebabs, halal gyro, grilled halal meat, refreshments',)]
+>>> [ x for x in db.session.query(Truck_schedule.extra_text).all() if 'rolls' in x[0]]
+[]
+>>> [ x for x in db.session.query(Truck_schedule.extra_text).all() if 'dogs' in x[0]]
+[(u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Corndogs, fried burrito, rice placet, soda, water, sandwiches, soup, noodle plates',), (u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Corndogs, fried burrito, rice placet, soda, water, sandwiches, soup, noodle plates',)]
+>>> Truck_schedule.make_truck_schedule()
+Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm
+B?rgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "food-truck-db_seed.py", line 123, in make_truck_schedule
+    extra_text = row[3].encode('latin1', errors='ignore')
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xe9 in position 1: ordinal not in range(128)
+>>> ^D
+(env)Breannes-MacBook-Air:db-creation breanneboland$ python -i food-truck-db_seed.py
+Connected to DB.
+>>> Truck_schedule.make_truck_schedule()
+Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm
+B?rgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks
+Set-up at 555 Mission Bay Blvd So.: 10:00am-10:10am, 12:00pm-12:30pm
+Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks
+10:05am-10:10am, 11:30am-11:40am
+Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies
+Set-up at 696 Amador St: 7:00am-8:00am, 10:20am-10:30am, 11:40am-11:50am
+Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies
+10:30am-12:00pm
+Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water
+Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm
+Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm
+10:30am-1:30am
+Cold Truck: packaged sandwiches, pitas, breakfast, cold and hot drinks, snacks
+a truck 45_????? north from the SW corner of Pine and Sansome (west side)
+Artisan Pizzas (Margherita, Yukon Potato, Zoe's Pepperoni, Funghi, Brocolli Rabe, Bacon Kale,  Arugula) and Drinks.
+
+Corndogs, fried burrito, rice placet, soda, water, sandwiches, soup, noodle plates
+10:30am-1:30pm
+St. Louis Style Ribs, Pulled Pork Sandwich, Smoked Brisket, Smoked Chicken Drumsticks, Spinach Salad, Cole Slaw, Baked Beans, Mashed Potatoes, Grilled Asparagus, Mac & Cheese, Potato Salad, Buttermil Pie, Soda, Water
+Truck located on East side of Front Street approximately 20' from Vallejo St. intersection.
+Rotisserie Chicken, Ribs, Kickass Salad, Potatos w/fat dripping, chicken wrap.
+10:00am-3:00pm
+Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water
+Pushcart located on the California St sidewalk 27LF East of Mongomery St.
+kebabs, halal gyro, grilled halal meat, refreshments
+Whoa, you made more objects! And they apparently committed again! Woohoo!
+>>> db.session.query(Truck_schedule.extra_text).all()
+[(u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies',), (u'Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies',), (u'Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water',), (u'Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm',), (u'Cold Truck: packaged sandwiches, pitas, breakfast, cold and hot drinks, snacks',), (u"Artisan Pizzas (Margherita, Yukon Potato, Zoe's Pepperoni, Funghi, Brocolli Rabe, Bacon Kale,  Arugula) and Drinks.",), (u'Corndogs, fried burrito, rice placet, soda, water, sandwiches, soup, noodle plates',), (u'St. Louis Style Ribs, Pulled Pork Sandwich, Smoked Brisket, Smoked Chicken Drumsticks, Spinach Salad, Cole Slaw, Baked Beans, Mashed Potatoes, Grilled Asparagus, Mac & Cheese, Potato Salad, Buttermil Pie, Soda, Water',), (u'Rotisserie Chicken, Ribs, Kickass Salad, Potatos w/fat dripping, chicken wrap.',), (u'Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water',), (u'kebabs, halal gyro, grilled halal meat, refreshments',), (u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies',), (u'Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies',), (u'Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water',), (u'Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm',), (u'Cold Truck: packaged sandwiches, pitas, breakfast, cold and hot drinks, snacks',), (u"Artisan Pizzas (Margherita, Yukon Potato, Zoe's Pepperoni, Funghi, Brocolli Rabe, Bacon Kale,  Arugula) and Drinks.",), (u'Corndogs, fried burrito, rice placet, soda, water, sandwiches, soup, noodle plates',), (u'St. Louis Style Ribs, Pulled Pork Sandwich, Smoked Brisket, Smoked Chicken Drumsticks, Spinach Salad, Cole Slaw, Baked Beans, Mashed Potatoes, Grilled Asparagus, Mac & Cheese, Potato Salad, Buttermil Pie, Soda, Water',), (u'Rotisserie Chicken, Ribs, Kickass Salad, Potatos w/fat dripping, chicken wrap.',), (u'Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water',), (u'kebabs, halal gyro, grilled halal meat, refreshments',), (u'Brgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies',), (u'Cold Truck: Soft drinks, cup cakes, potato chips, cookies, gum, sandwiches (hot & cold), peanuts, muffins, coff (hot & cold), water, juice, yoplait, milk, orange juice, sunflower seeds, can foods, burritos, buscuits, chimichangas, rice krispies',), (u'Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water',), (u'Set-up at 240 Loomis St: 10:40am-11:05am, 12:05pm-12:10pm',), (u'Cold Truck: packaged sandwiches, pitas, breakfast, cold and hot drinks, snacks',), (u"Artisan Pizzas (Margherita, Yukon Potato, Zoe's Pepperoni, Funghi, Brocolli Rabe, Bacon Kale,  Arugula) and Drinks.",), (u'Corndogs, fried burrito, rice placet, soda, water, sandwiches, soup, noodle plates',), (u'St. Louis Style Ribs, Pulled Pork Sandwich, Smoked Brisket, Smoked Chicken Drumsticks, Spinach Salad, Cole Slaw, Baked Beans, Mashed Potatoes, Grilled Asparagus, Mac & Cheese, Potato Salad, Buttermil Pie, Soda, Water',), (u'Rotisserie Chicken, Ribs, Kickass Salad, Potatos w/fat dripping, chicken wrap.',), (u'Hot Dogs, Hamburgers, Nachos, Steaks, Pastas, Asian Dishes, Tri-Tip Sandwiches, Sodas & Water',), (u'kebabs, halal gyro, grilled halal meat, refreshments',)]
+>>> [ x for x in db.session.query(Truck_schedule.extra_text).all() if 'melt' in x[0]]
+[(u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Brgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',), (u'Burgers, melts, hot dogs, burritos,sandwiches, fries, onion rings, drinks',)]
+>>> ^D
+(env)Breannes-MacBook-Air:db-creation breanneboland$ ls
+Mobile_Food_Schedule.csv    mobile_food_permits.csv     server.py
+food-truck-db_seed.py       mobile_schedule_slice.csv   server.pyc
+(env)Breannes-MacBook-Air:db-creation breanneboland$ vim mobile_schedule_slice.csv 
+(env)Breannes-MacBook-Air:db-creation breanneboland$ vim mobile_schedule_slice.csv 
+(env)Breannes-MacBook-Air:db-creation breanneboland$ file mobile_schedule_slice.csv 
+mobile_schedule_slice.csv: Non-ISO extended-ASCII English text, with very long lines, with CRLF line terminators
+(env)Breannes-MacBook-Air:db-creation breanneboland$ 

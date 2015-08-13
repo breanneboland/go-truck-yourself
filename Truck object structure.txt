@@ -1,0 +1,50 @@
+Truck object structure]
+
++ means it comes from a source other than SF Open Data
+
+Questions:
+    -Performance issues on calling from API vs. local db?
+    -Career day concerns about relying on external API db vs. local db? 
+
++My db's autoincremented ID (or not...)
+ID (from city)
+name
++URL
++Possibly separate menu link
++Most recent tweet or three
+Price point
+Times
+    Sunday
+        Address (not null)
+        Cross streets
+        Neighborhood (perhaps automatically added later)
+        Coordinates (not null)
+        Pod membership
+        Hours
+    Monday
+    Tuesday
+    Wednesday
+    Thursday
+    Friday
+    Saturday 
++Twitter handle
++Type of food
++Keywords
+Description
++Yelp URL
++Yelp rating
++Yelp pictures?
++Method of payment?
+
+
+Data to infer, not exact values
+Open now
+Open at a certain time
+Neighborhood by time/meal
+
+Other tables:
+Neighborhoods (x and y values for comparison and inference)
+Pod locations
+User submissions
+Truck submissions (these two may be a single table with a cell that indicates the source)
+

@@ -1,0 +1,35 @@
+Google Maps API notes
+
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=YOUR_KEY"></script>
+
+
+Setup: http://www.w3schools.com/googleapi/google_maps_basic.asp
+Need lat/long for centering - pull location from HTML5, default in the center of SF, wherever that is
+Decide on zoom level
+
+Markers for truck locations
+Polygon for neighborhood delineations
+Info windows for truck locations and possibly neighborhood map sections
+
+    var marker=new google.maps.Marker({
+      position:myCenter,
+      icon:'pinkball.png'
+      });
+
+    marker.setMap(map);
+
+Will need to create version of above function using database-supplied lat/long
+No animation, ugh.
+Icon bit lets you use a custom marker. Yes please.
+
+Info window information: https://developers.google.com/maps/documentation/javascript/infowindows
+W3 reference documentation: http://www.w3schools.com/googleapi/google_maps_ref.asp
+Streetview parameters: https://developers.google.com/maps/documentation/streetview/intro
+
+Options:
+    Click the marker to zoom: http://www.w3schools.com/googleapi/google_maps_events.asp
+    Click the marker for an info window: same URL as above
+
+So the key seems to be to create a Jinja loop or something like it that turns out marker lat/long variables to be fed into the map on the page. And the search parameters would perhaps be set by the parameters/area covered by the map at loading or after zooming/shifting. 
+45-degree zoom could be a thing, considering SF, considering tiny location markers.
