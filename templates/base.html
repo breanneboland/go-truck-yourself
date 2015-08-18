@@ -1,5 +1,27 @@
-<!DOCTYPE html>
 
-nav and other persistent things
-footer and other persistent things
-Random truck button
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="/static/truck.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+
+</head>
+
+<body>
+  <nav>
+    <a href="/neighborhoods">Neighborhoods</a>
+    <a href="/truck-schedule-info">Truck Schedules</a>
+    <a href="/add-a-truck">Suggest a Truck</a>
+    <a href="/add-my-truck">Submit Your Truck</a>
+    <a href="/truck-me">Get a Random Truck</a>
+    <a href="/about">About This Project</a>
+  </nav>
+
+  {% block content %} put your content here {% endblock %}
+
+  <footer>
+    <p>Footer: echoes nav above</p>
+  </footer>
+</body>
+</html>

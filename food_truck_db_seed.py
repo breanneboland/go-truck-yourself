@@ -1,5 +1,6 @@
 import csv
 from flask_sqlalchemy import SQLAlchemy
+# import os
 
 truck_permit_records = open("mobile_food_permits.csv")
 db = SQLAlchemy()
@@ -82,7 +83,20 @@ class Truck_schedule(db.Model):
     schedule_id = db.Column(db.String(50), nullable=False)
     start_time = db.Column(db.String(10))
     end_time = db.Column(db.String(10))
-    coordinates = db.Column(db.String(100), nullable=False)
+    x_coordinate = db.Column(db.String(50))
+    y_coordinate = db.Column(db.String(50))
+
+    # self.truck_id = truck_id
+    # self.truck_name = truck_name
+    # self.day_of_week = day_of_week
+    # self.permit_number = permit_number
+    # self.location_description = location_description
+    # self.extra_text = extra_text
+    # self.location_id = location_id
+    # self.schedule_id = schedule_id
+    # self.start_time = start_time
+    # self.end_time = end_time
+    # self.coordinates = coordinates
 
     @classmethod
     def make_truck_schedule(cls):
@@ -100,8 +114,6 @@ class Truck_schedule(db.Model):
             else:
                 truck_id = truck_id_tuple[0]
                 
-
-
             # day_of_week, permit_number, location_description, extra_text, location_id,
             if row[0]:
                 day_of_week = row[0]
@@ -112,13 +124,13 @@ class Truck_schedule(db.Model):
                 permit_number = row[1]
             else:
                 permit_number = ""
-            print row[2]
+
             if row[2]:
                 # location_description = row[2].encode('latin1', errors='ignore')
                 location_description = row[2].decode('utf8', errors='ignore')
             else: 
                 location_description = ""
-            print row[3]
+
             if row[3]:
                 extra_text = row[3].decode('utf8', errors='ignore')
             else: 
@@ -145,11 +157,13 @@ class Truck_schedule(db.Model):
                 end_time = ""
 
             if len(row) > 10:
-                coordinates = [row[10], row[11]]
+                x_coordinate = row[10]
+                y_coordinate = row[11]
             else:
-                coordinates = ""
+                x_coordinate = ""
+                y_coordinate = ""
 
-            temp_object = cls(truck_id=truck_id, truck_name=truck_name, day_of_week=day_of_week, permit_number=permit_number, location_description=location_description, extra_text=extra_text, location_id=location_id, schedule_id=schedule_id, start_time=start_time, end_time=end_time, coordinates=coordinates)
+            temp_object = cls(truck_id=truck_id, truck_name=truck_name, day_of_week=day_of_week, permit_number=permit_number, location_description=location_description, extra_text=extra_text, location_id=location_id, schedule_id=schedule_id, start_time=start_time, end_time=end_time, x_coordinate=x_coordinate, y_coordinate=y_coordinate)
 
             db.session.add(temp_object)
 
@@ -157,48 +171,85 @@ class Truck_schedule(db.Model):
 
         # return object_list
         print "Whoa, you made more objects! And they apparently committed again! Woohoo!"
-
-class Truck_permit(db.Model):
-    """Creates between table linking truck info with all associated location permits.
-    """
-
-    __tablename__ = "trucks_and_permits"
-
-    combination_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    truck_id = db.Column(db.Integer, db.ForeignKey('trucks_info_test.id'), nullable=False)
-    location_permit = db.Column(db.String(50), nullable=False) # from city; permit, row[1] on CSV
-    name = db.Column(db.String(100), nullable=False) # from city; Applicant, row [9] on CSV
 
     @classmethod
-    def make_truck_permit_records(cls):
+    def dump(self):
 
-        file_read = csv.reader(open('mobile_food_permits.csv', 'rU'), quotechar='"', delimiter = ',')
+        return {"truckscheduleinfo": {'truck_id': self.truck_id,
+                                    'truck_name': self.truck_name,
+                                    'day_of_week': self.day_of_week,
+                                    'permit_number': self.permit_number,
+                                    'location_description': self.location_description,
+                                    'extra_text': self.extra_text,
+                                    'location_id': self.location_id,
+                                    'schedule_id': self.schedule_id,
+                                    'start_time': self.start_time,
+                                    'end_time': self.end_time,
+                                    'coordinates': self.coordinates}}
 
-        for row in file_read:
-            # temp_object = Truck(row)
-            # object_list.append(temp_object)
-            # print temp_object
-            name = row[1] #from city; Applicant
-            print "Name:", name
-            location_permit = row[9] #from city; may not use            
-            print "Location permit:", location_permit
-            truck_id = db.session.query(Truck.id).filter_by(name=row[1]).first()[0]
-            print "Queried truck ID:", truck_id
+# class Truck_permit(db.Model):
+#     """Creates between table linking truck info with all associated location permits.
+#     """
 
-            temp_object = cls(name=name, location_permit=location_permit, truck_id=truck_id)
+#     __tablename__ = "trucks_and_permits"
 
-            db.session.add(temp_object)
+#     combination_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+#     truck_id = db.Column(db.Integer, db.ForeignKey('trucks_info_test.id'), nullable=False)
+#     location_permit = db.Column(db.String(50), nullable=False) # from city; permit, row[1] on CSV
+#     name = db.Column(db.String(100), nullable=False) # from city; Applicant, row [9] on CSV
 
-        db.session.commit()
+#     @classmethod
+#     def make_truck_permit_records(cls):
 
-        # return object_list
-        print "Whoa, you made more objects! And they apparently committed again! Woohoo!"
+#         file_read = csv.reader(open('mobile_food_permits.csv', 'rU'), quotechar='"', delimiter = ',')
 
+#         for row in file_read:
+#             # temp_object = Truck(row)
+#             # object_list.append(temp_object)
+#             # print temp_object
+#             name = row[1] #from city; Applicant
+#             print "Name:", name
+#             location_permit = row[9] #from city; may not use            
+#             print "Location permit:", location_permit
+#             truck_id = db.session.query(Truck.id).filter_by(name=row[1]).first()[0]
+#             print "Queried truck ID:", truck_id
+
+#             temp_object = cls(name=name, location_permit=location_permit, truck_id=truck_id)
+
+#             db.session.add(temp_object)
+
+#         db.session.commit()
+
+#         # return object_list
+#         print "Whoa, you made more objects! And they apparently committed again! Woohoo!"
+
+def update_db():
+    """
+    Connects to https://data.sfgov.org/Economy-and-Community/Mobile-Food-Schedule/jjew-r69b to query the Addr_Date_Modified column to find any changes committed since the last date the thing ran. (Let's say it should go once a week.)
+    """
+
+    # pseudocode:
+    # connect to my db
+    # connect to city db
+    # API query by Addr_Date_Modified to see what fields have changed since the last update (will need to account for blank cells)
+    # collect permit numbers of rows with changes
+    # create list of those permit numbers 
+
+    # if there is an update:
+    #     use that list of permit numbers to loop a removal/query like so:
+    #     remove existing records for that permit number
+    #     reseed those rows from schedule table using existing seed function, taking only the appropriate fields
+    #     run the function to add neighborhoods to those rows
+    #     commit
+
+    # set system update date to date of that query
+    # set it to run again in a week or whatever
 
 def connect_to_db(app):
     """Connect the database to our Flask app."""
 
     # Configure to use Postgres database
+    # SQLALCHEMY_DATABASE_URI = os.environ['postgresql://localhost:5432/truck_info']
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost:5432/truck_info'
     db.app = app
     db.init_app(app)
