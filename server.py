@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, flash, session, jso
 from food_truck_db_seed import Truck, Truck_schedule, connect_to_db, db
 from flask_debugtoolbar import DebugToolbarExtension
 import json
+import datetime
 
 # from model import tbd
 
@@ -33,8 +34,14 @@ def truck_details(truck_id):
     #Divide into variables to pass into the site itself
 
     truck_id = truck_id 
+    # Assigns based on number passed via URL
+    print truck_id
     truck = Truck.query.get(truck_id)
-    truck_schedule = Truck_schedule.query.filter_by(truck_id=truck_id).all() #list of objects
+    print truck
+    # Gets truck information from truck info db
+    truck_schedule = Truck_schedule.query.filter_by(truck_id=truck_id).all() 
+    #list of schedule objectsby truck ID foreign key - will be empty for some truck IDs
+    print truck_schedule 
 
     schedule_range = {"Sunday": [],
                       "Monday": [],
@@ -44,27 +51,108 @@ def truck_details(truck_id):
                       "Friday": [],
                       "Saturday": []
                       }
+    # # What if they're two different places in a day? Might need to add permit numbers to that function.
 
     for truck_object in truck_schedule:
+        print "Opened an object!"
+        print "Start time: ", truck_object.start_time
+        print "End time: ", truck_object.end_time
+
         if truck_object.start_time not in schedule_range[truck_object.day_of_week]:
-            schedule_range[truck_object.day_of_week].append(truck_object.start_time)
-        else:
-            pass
+            if len(truck_object.start_time) < 5:
+                revised_time = "0" + truck_object.start_time
+                print "The revised start_time got added!", revised_time
+                schedule_range[truck_object.day_of_week].append(revised_time)
+            else:
+                schedule_range[truck_object.day_of_week].append(truck_object.start_time)
+                print "It added the start_time as it was!", truck_object.start_time
 
-        if truck_object.end_time not in schedule_range:
-            schedule_range["Sunday"].append(truck_object.end_time)
+        if truck_object.end_time not in schedule_range[truck_object.day_of_week]:
+            if len(truck_object.end_time) < 5:
+                revised_time = "0" + truck_object.start_time
+                print "This is the revised end_time got added: ", revised_time
+                schedule_range[truck_object.day_of_week].append(revised_time)
+            else:
+                schedule_range[truck_object.day_of_week].append(truck_object.end_time)
+                print "It added the end_time as it was!", truck_object.start_time
+
+
+    print "After-function schedule_range: ", schedule_range
+
+    # print "This should be the opening time Sunday: ", min(schedule_range["Sunday"])
+    # print "This should be the closing time Sunday: ", max(schedule_range["Sunday"])
+
+    # sunday_start_time = min(schedule_range["Sunday"])
+    # sunday_close_time = max(schedule_range["Sunday"])
+
+    schedule_open_close = {"Sunday": [],
+                          "Monday": [],
+                          "Tuesday": [],
+                          "Wednesday": [],
+                          "Thursday": [],
+                          "Friday": [],
+                          "Saturday": []
+                          }
+
+    for key in schedule_range: 
+        if schedule_range[key] == []:
+            pass
         else: 
-            pass
+            print "HERE IS THE KEY, NEW LOOP!", key
+            formatted_open = datetime.datetime.strptime(min(schedule_range[key]), "%H:%M")
+            print "Formatted open: ", formatted_open
+
+            if formatted_open.hour < 12:
+                augment = " AM"
+            else: 
+                augment = " PM"
+
+            open_time = str(formatted_open.hour % 12) + ":" + str(formatted_open.minute) + "0" + augment 
+            print "Open time: ", open_time
+            schedule_open_close[key].append(open_time)
+
+            formatted_close = datetime.datetime.strptime(max(schedule_range[key]), "%H:%M")
+            print "Formatted close: ", formatted_close
+
+            if formatted_close.hour < 12:
+                augment = " AM"
+            else: 
+                augment = " PM"
+
+            close_time = str(formatted_close.hour % 12) + ":" + str(formatted_close.minute) + "0" + augment
+            print "Close time: ", close_time
+            schedule_open_close[key].append(close_time)
 
 
-# Thoughts and questions: is there a more efficient way to do this? Do I need to creat the DOW dictionary keys first? Does this need to be a JSON route like the basic query information? And once I get the function down, I need to figure out how best to do the sort and then taking the first and last time in that range. 
+        # if statement that turns numbers over 12 to regular hours and adds AM or PM
+        # line that turns numbers into datetime objects and puts correct information on
+        # part that adds this formatted bit to the two-item list this will ultimately pass to the page, appended to each day-key
+        # do it for both min and max
 
-    truck_schedule_1 = truck_schedule[0]
-    # truck_schedule_json_object = json.dumps(truck_schedule_1)
-    # print truck_schedule_json_object
-    # print type(truck_schedule_json_object)
+    schedule_range_json = json.dumps(schedule_open_close)
+    print "This is the jsonified version: ", schedule_range_json
 
-    # coordinates = [truck_schedule_1.x_coordinate, truck_schedule_1.y_coordinate]
+# Overall approach to this data: could do a join to only get IDs in both lists. 
+
+    if truck_schedule:
+        truck_schedule_1 = truck_schedule[0]
+        print "Truck_schedule_1=", truck_schedule_1
+    else:
+        truck_schedule_1 = {"name": "fake data",
+                            "schedule_line_id": "666",
+                            "location_description": "fake data",
+                            "food_items": "fake data",
+                            "expiration_date": "fake data",
+                            "day_of_week": "Any day",
+                            "start_time": "99 AM",
+                            "end_time": "99 PM",
+                            "extra_text": "Here is where extra text might go.",
+                            "x_coordinate": "72.222222",
+                            "y_coordinate": "27"
+                            }
+        print "You got the dummy."
+        # Added a fake dictionary for now so that it doesn't freak out if there's no information. But now it only uses that fake dictionary, rrrrrrr.
+        #Add something here that passes the value if it exists and ignore it if it doesn't so the randomly selected pages don't error if there are no schedule lines! But Jinja ignores variables without value, so there are ways to put this together... Could make a second simpler file to call in case of no schedule lines. 
 
     #going to need some if-else Jinja stuff to account for blank cells. Missing coordinates: "This truck didn't tell SF its coordinates, but here's its address: {{ blah blah }}." Will also need to convert 24-hour time to American-friendly time.
 
@@ -82,6 +170,7 @@ def truck_details(truck_id):
 
     return render_template("truck_details.html", truck_id=truck_id, truck=truck, truck_schedule=truck_schedule, truck_schedule_1=truck_schedule_1)
         # truck_schedule_object_list=truck_schedule_object_list)
+# schedule_range_json=schedule_range_json, 
 
 @app.route("/truck_info.json")
 def truck_information():

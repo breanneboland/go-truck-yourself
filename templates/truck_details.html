@@ -113,6 +113,7 @@ $.get("/truck_info.json", $("#truck-info-text").serialize(), function (truck_sch
         $("#truck-info-text").append("<p>This truck is here on " + truck.dayOfWeek + " at these times: " + truck.startTime + " - " + truck.endTime + ".</p>");
   }
 );
+// Could make a CSS selector class on the P connects to the day of the week, and then there are hidden settings (true/false) based on the day of the week the person selects. Checkboxes for each day of the week, and they toggle hide/show based on the class. 
 
 
 </script>
