@@ -15,6 +15,7 @@
 
 <div id="truck-location-map"></div>
 <div id="truck-info-text"></div>
+<div id="test-div"></div>
 
 <p>Text block next to map</p>
 <p>Schedule information, listed and unsorted, really</p>
@@ -26,14 +27,11 @@
 
 function initMap() {
 
-    var coordinates1 = [37.7111991, -122.3946933] 
-    // Looks like probably a good idea to keep the coordinates separate, actually, to sub X and Y rather than some listed pair. Cool, another db reseed. 
-
     var map;
 
     var mapOptions = {
         zoom: 12,
-        center: new google.maps.LatLng(37.7111991, -122.3946933)
+        center: new google.maps.LatLng(37.756366, -122.438632)
     };
 
     map = new google.maps.Map(
@@ -47,11 +45,12 @@ function initMap() {
     });
     // Keep this out of the loop so it only creates one info window at a time, otherwise, you'd get more and more each time you click a marker. No!
 
-    $.get('/truck_info.json', function (truck_schedule_info) {
+    $.get('/truck_info.json', {truck_id: {{ truck_id }} }, function (truck_schedule_info) {
         // Attach markers to each truck location in returned JSON
         var truck, marker, contentString;
                 
         for (var key in truck_schedule_info) {
+            
             truck = truck_schedule_info[key];
 
             // Define the marker
@@ -64,13 +63,13 @@ function initMap() {
             // Define the content of the infoWindow
             contentString = (
                 '<div class="window-content">' +
-                    '<p><b>Location description: </b>' + truck.locationDescription + '</p>' +
-                    '<p><b>Some more information: </b>' + truck.extraText + '</p>' +
+                    '<p><b>Day and times:</b> ' + truck.dayOfWeek + ', ' + truck.startTime + ' - ' + truck.endTime + '</p><p><b>Additional location/time information: </b>' + truck.locationDescription + '</p><p><b>Some more information, thx SF OpenData: </b>' + truck.extraText + '</p>' +
                 '</div>');
 
             // Inside the loop we call bindInfoWindow passing it the marker,
             // map, infoWindow and contentString
             bindInfoWindow(marker, map, infoWindow, contentString);
+
         }
 
     });
@@ -105,14 +104,16 @@ function initMap() {
 
 <script>
 
-$.get("/truck_info.json", $("#truck-info-text").serialize(), function (truck_schedule_info) {
-    var truck, contentString;
+function appendSchedule () {
+    $.get('/truck_schedule_times', { truck_id: {{truck_id }} }, function (schedule_info) {
+        console.log('Got into the function!');
+        var details = schedule_info;
+        $('#truck-info-text').append(details);
+    });
+};
 
-    for (var key in truck_schedule_info)
-        truck = truck_schedule_info[key];
-        $("#truck-info-text").append("<p>This truck is here on " + truck.dayOfWeek + " at these times: " + truck.startTime + " - " + truck.endTime + ".</p>");
-  }
-);
+$('#truck-info-text').load(appendSchedule);
+
 // Could make a CSS selector class on the P connects to the day of the week, and then there are hidden settings (true/false) based on the day of the week the person selects. Checkboxes for each day of the week, and they toggle hide/show based on the class. 
 
 

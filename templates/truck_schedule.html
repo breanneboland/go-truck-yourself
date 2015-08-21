@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% if schedule_open_close %}
+
+        {% for key in schedule_open_close %}
+
+            <p class={{ key }}>{{schedule_object.key}}: {{ schedule_object[key][0] }} - {{ schedule_object[key][1] }}</p>
+
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

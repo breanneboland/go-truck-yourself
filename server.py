@@ -33,7 +33,6 @@ def truck_details(truck_id):
     #Call all applicable rows from schedule spreadsheet
     #Divide into variables to pass into the site itself
 
-    truck_id = truck_id 
     # Assigns based on number passed via URL
     print truck_id
     truck = Truck.query.get(truck_id)
@@ -42,6 +41,54 @@ def truck_details(truck_id):
     truck_schedule = Truck_schedule.query.filter_by(truck_id=truck_id).all() 
     #list of schedule objectsby truck ID foreign key - will be empty for some truck IDs
     print truck_schedule 
+
+# Overall approach to this data: could do a join to only get IDs in both lists. 
+
+    if truck_schedule:
+        truck_schedule_1 = truck_schedule[0]
+        print "Truck_schedule_1=", truck_schedule_1
+    else:
+        truck_schedule_1 = {"name": "fake data",
+                            "schedule_line_id": "666",
+                            "location_description": "fake data",
+                            "food_items": "fake data",
+                            "expiration_date": "fake data",
+                            "day_of_week": "Any day",
+                            "start_time": "99 AM",
+                            "end_time": "99 PM",
+                            "extra_text": "Here is where extra text might go.",
+                            "x_coordinate": "72.222222",
+                            "y_coordinate": "27"
+                            }
+        print "You got the dummy."
+        # Added a fake dictionary for now so that it doesn't freak out if there's no information. But now it only uses that fake dictionary, rrrrrrr.
+        #Add something here that passes the value if it exists and ignore it if it doesn't so the randomly selected pages don't error if there are no schedule lines! But Jinja ignores variables without value, so there are ways to put this together... Could make a second simpler file to call in case of no schedule lines. 
+
+    #going to need some if-else Jinja stuff to account for blank cells. Missing coordinates: "This truck didn't tell SF its coordinates, but here's its address: {{ blah blah }}." Will also need to convert 24-hour time to American-friendly time.
+
+
+#JS: JSON.stringify(jsObject);        // --> a string of valid JSON (to send)
+# JSON.parse(jsonString);          // --> a javascript object
+# Python:
+# json.dumps(python_dict)          # --> a string of valid JSON (to send)
+# json.loads(json_string)          # --> a Python dict
+# return jsonify(days=2, cost=5)
+
+#Figure out what ID I will use for trucks
+#Uses ID from truck detail table to create, then uses same ID on schedule table to add schedule information
+
+
+    return render_template("truck_details.html", truck_id=truck_id, truck=truck, truck_schedule=truck_schedule, truck_schedule_1=truck_schedule_1)
+        # truck_schedule_object_list=truck_schedule_object_list)
+# schedule_range_json=schedule_range_json, 
+
+@app.route("/truck_schedule_times")
+def truck_schedule_times():
+    truck_id = request.args.get("truck_id")
+    truck_schedule = Truck_schedule.query.filter_by(truck_id=truck_id).all() 
+
+
+    schedule_objects = Truck_schedule.query.filter_by(truck_id=truck_id).all()
 
     schedule_range = {"Sunday": [],
                       "Monday": [],
@@ -129,52 +176,18 @@ def truck_details(truck_id):
         # part that adds this formatted bit to the two-item list this will ultimately pass to the page, appended to each day-key
         # do it for both min and max
 
-    schedule_range_json = json.dumps(schedule_open_close)
-    print "This is the jsonified version: ", schedule_range_json
+    # schedule_range_json = json.dumps(schedule_open_close)
+    # print "This is the jsonified version: ", schedule_range_json
 
-# Overall approach to this data: could do a join to only get IDs in both lists. 
-
-    if truck_schedule:
-        truck_schedule_1 = truck_schedule[0]
-        print "Truck_schedule_1=", truck_schedule_1
-    else:
-        truck_schedule_1 = {"name": "fake data",
-                            "schedule_line_id": "666",
-                            "location_description": "fake data",
-                            "food_items": "fake data",
-                            "expiration_date": "fake data",
-                            "day_of_week": "Any day",
-                            "start_time": "99 AM",
-                            "end_time": "99 PM",
-                            "extra_text": "Here is where extra text might go.",
-                            "x_coordinate": "72.222222",
-                            "y_coordinate": "27"
-                            }
-        print "You got the dummy."
-        # Added a fake dictionary for now so that it doesn't freak out if there's no information. But now it only uses that fake dictionary, rrrrrrr.
-        #Add something here that passes the value if it exists and ignore it if it doesn't so the randomly selected pages don't error if there are no schedule lines! But Jinja ignores variables without value, so there are ways to put this together... Could make a second simpler file to call in case of no schedule lines. 
-
-    #going to need some if-else Jinja stuff to account for blank cells. Missing coordinates: "This truck didn't tell SF its coordinates, but here's its address: {{ blah blah }}." Will also need to convert 24-hour time to American-friendly time.
-
-
-#JS: JSON.stringify(jsObject);        // --> a string of valid JSON (to send)
-# JSON.parse(jsonString);          // --> a javascript object
-# Python:
-# json.dumps(python_dict)          # --> a string of valid JSON (to send)
-# json.loads(json_string)          # --> a Python dict
-# return jsonify(days=2, cost=5)
-
-#Figure out what ID I will use for trucks
-#Uses ID from truck detail table to create, then uses same ID on schedule table to add schedule information
-
-
-    return render_template("truck_details.html", truck_id=truck_id, truck=truck, truck_schedule=truck_schedule, truck_schedule_1=truck_schedule_1)
-        # truck_schedule_object_list=truck_schedule_object_list)
-# schedule_range_json=schedule_range_json, 
+    return render_template("truck_schedule.html",
+                            schedule_open_close=schedule_open_close)
 
 @app.route("/truck_info.json")
 def truck_information():
-    """JSON information about trucks."""
+    """JSON information about truck schedules."""
+
+    truck_id = request.args.get("truck_id")
+    # Add more args/variables for future filters, then pass down. If [x variable], then (this filtered query).
 
     truck_schedule_info = {
         truck.schedule_line_id: {
@@ -191,10 +204,11 @@ def truck_information():
         "xCoordinate": truck.x_coordinate,
         "yCoordinate": truck.y_coordinate
     }
-
-    for truck in Truck_schedule.query.limit(150)}
+    for truck in Truck_schedule.query.filter_by(truck_id=truck_id).all()}
 
     return jsonify(truck_schedule_info)
+
+
 
 @app.route("/truck-schedule-info")
 def get_schedule_info():
