@@ -13,7 +13,10 @@
 <!-- <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBca63SUqhkwBRtGvc6kGNQJOiFyQdrX0I"></script> -->
 
 
-<div id="truck-location-map"></div>
+<div id="truck-location-map">
+    <div id="day-buttons"></div>
+</div>
+
 <div id="truck-info-text"></div>
 <div id="test-div"></div>
 
@@ -103,16 +106,22 @@ function initMap() {
 </script>
 
 <script>
+console.log($('#truck-info-text'));
+$('#truck-info-text').html("Random words");
 
 function appendSchedule () {
+    console.log("Did it get here? Yes!");
     $.get('/truck_schedule_times', { truck_id: {{truck_id }} }, function (schedule_info) {
         console.log('Got into the function!');
         var details = schedule_info;
-        $('#truck-info-text').append(details);
+        console.log(schedule_info);
+        $('#truck-info-text').html(details);
     });
 };
 
-$('#truck-info-text').load(appendSchedule);
+$('#truck-info-text').load(appendSchedule());
+
+$('')
 
 // Could make a CSS selector class on the P connects to the day of the week, and then there are hidden settings (true/false) based on the day of the week the person selects. Checkboxes for each day of the week, and they toggle hide/show based on the class. 
 

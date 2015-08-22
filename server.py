@@ -79,8 +79,6 @@ def truck_details(truck_id):
 
 
     return render_template("truck_details.html", truck_id=truck_id, truck=truck, truck_schedule=truck_schedule, truck_schedule_1=truck_schedule_1)
-        # truck_schedule_object_list=truck_schedule_object_list)
-# schedule_range_json=schedule_range_json, 
 
 @app.route("/truck_schedule_times")
 def truck_schedule_times():
@@ -88,8 +86,7 @@ def truck_schedule_times():
     truck_schedule = Truck_schedule.query.filter_by(truck_id=truck_id).all() 
 
 
-    schedule_objects = Truck_schedule.query.filter_by(truck_id=truck_id).all()
-
+    days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     schedule_range = {"Sunday": [],
                       "Monday": [],
                       "Tuesday": [],
@@ -170,6 +167,7 @@ def truck_schedule_times():
             print "Close time: ", close_time
             schedule_open_close[key].append(close_time)
 
+        print schedule_open_close
 
         # if statement that turns numbers over 12 to regular hours and adds AM or PM
         # line that turns numbers into datetime objects and puts correct information on
@@ -180,6 +178,7 @@ def truck_schedule_times():
     # print "This is the jsonified version: ", schedule_range_json
 
     return render_template("truck_schedule.html",
+                            days=days,
                             schedule_open_close=schedule_open_close)
 
 @app.route("/truck_info.json")
@@ -208,17 +207,6 @@ def truck_information():
 
     return jsonify(truck_schedule_info)
 
-
-
-@app.route("/truck-schedule-info")
-def get_schedule_info():
-
-    delivery_info = {
-        'days': days,
-        'cost': cost
-    }
-
-    return json.dumps(delivery_info) 
 
 @app.route('/neighborhood/<string:neighborhood_name>')
 def neighborhood_page(neighborhood_name):

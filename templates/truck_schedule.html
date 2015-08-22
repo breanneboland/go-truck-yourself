@@ -1,13 +1,26 @@
-{% extends 'base.html' %}
 {% block content %}
+
+    <p id="schedule-graph">Show me the schedule for...</p>
 
     {% if schedule_open_close %}
 
-        {% for key in schedule_open_close %}
+        {% for day in schedule_open_close %}
 
-            <p class={{ key }}>{{schedule_object.key}}: {{ schedule_object[key][0] }} - {{ schedule_object[key][1] }}</p>
+            {% if schedule_open_close[day] %}
+                <button id={{ day + "-button"}}>{{ day }}</button>
+            {% endif %}
 
         {% endfor %}
+
     {% endif %}
+
+
+    {% for day in days %} 
+
+        {% if schedule_open_close[day] %}
+            <p class="day-button {{ day }}">{{ day }}: {{ schedule_open_close[day][0] }} - {{ schedule_open_close[day][1] }}</p>
+        {% endif %}
+
+    {% endfor %}
 
 {% endblock %}
