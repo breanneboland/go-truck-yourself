@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% if truck_name %}
+        <p>Your search results for {{truck_name}} and {{day_of_week}}:</p>
+    {% else %}
+        <p>Your search results for {{day_of_week}}:</p>
+    {% endif %}
+    
+    <div id="api-query-results"></div>
+
+
+
+<script>
+
+$.getJSON('https://data.sfgov.org/resource/jjew-r69b.json?dayofweekstr={{day_of_week}}&where=applicant={{truck_name}}', function(data) {
+
+    for line in data:
+        var search_text = '<p><b>' + {{ day_of_week }} + ':' + line.dayofweekstr + '</p><p>Truck name:' + line.applicant + '</p><p>Start time: ' + line.starttime + '</p><p>End time: ' + line.endtime + '</p><p>Description: ' + line.optionaltext + '</p><p>Location: ' + line.location + '.</p>';
+        $('#api-query-results').append(search_text);
+    }; 
+
+</script>
+{% endblock %}
+
+Why is base.html not showing up here?
+Why is it not passing variables over from the server? 

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <p>But don't let me stand in your way - search the SF OpenData records yourself!</p>
+    <form id="name-search" action="/permit-search-results">
+        <p class="form-text">Search by name: <input type="text" id="truck-name" name="truckname">
+        <p>Aim for an exact match - the SODA API doesn't currently support fuzzy sorts in this kind of JSON output. I know, I know.</p>
+
+        <p class="form-text" id="day-selector" name="dayofweek">Search by day of week: <select>
+            <option value="Sunday">Sunday
+            <option value="Monday">Monday
+            <option value="Tuesday">Tuesday
+            <option value="Wednesday">Wednesday
+            <option value="Thursday">Thursday
+            <option value="Friday">Friday
+            <option value="Saturday">Saturday
+        </select>
+        <input type="submit" id="truck-search-submit" value="Find those trucks!"></p>
+    </form>
+    
+
+<script>
+$(document).ready(function(){
+   $("form").submit(function(event) {
+    event.preventDefault;
+    var truckName = $('#truck-name').val();
+    console.log(truckName);
+    var truckDay = $('#day-selector').val();
+    console.log(truckDay);
+   });
+
+});
+
+
+</script>
+
+
+
+{% endblock %}

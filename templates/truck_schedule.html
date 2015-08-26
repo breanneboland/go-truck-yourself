@@ -1,26 +1,88 @@
 {% block content %}
 
-    <p id="schedule-graph">Show me the schedule for...</p>
+        {% if schedule_open_close %}
 
-    {% if schedule_open_close %}
+            <div id="truck-schedule-buttons">
+            <p id="schedule-graph">Show me the schedule for...</p>
+            <div id="button-bank"><button id="everyday-button">Show all</button>
 
-        {% for day in schedule_open_close %}
+            {% for day in days %}
 
-            {% if schedule_open_close[day] %}
-                <button id={{ day + "-button"}}>{{ day }}</button>
-            {% endif %}
+                {% if schedule_open_close[day] %}
+                    <button class="day-button" id="{{ day }}-button" data-day="{{ day }}">{{ day }}</button>
+                {% endif %}
 
-        {% endfor %}
+            {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 
-    {% endif %}
-
-
+    <div id="truck-schedule-text">
     {% for day in days %} 
 
         {% if schedule_open_close[day] %}
-            <p class="day-button {{ day }}">{{ day }}: {{ schedule_open_close[day][0] }} - {{ schedule_open_close[day][1] }}</p>
+            <p class="day-text" id="{{ day }}">{{ day }}: {{ schedule_open_close[day][0] }} - {{ schedule_open_close[day][1] }}</p>
         {% endif %}
 
     {% endfor %}
+    </div>
 
+<script>
+
+$( document ).ready(function() {
+    
+    console.log("Gets into the document/ready section.");
+
+    //Attempt at showing/hiding only Monday's text via only the #Monday-button, gave up on trying to get "day" value to pass as it seemed not to be the (only) problem
+    // $( "#Monday-button" ).on('click', function () {
+    //     alert("HEY");
+    //   console.log("Did the test function");
+    //   $( ".day-text" ).hide();
+    //   $( "#Monday" ).show();
+    // });
+
+    //Attempt at getting only Monday's text to show/hide via any .day-button
+    // $( ".day-button" ).click(function() {
+    //   event.preventDefault();
+    //   $( ".day-text" ).hide();
+    //   $( "#Monday" ).show();
+    //   console.log("Did the test function");
+    // });
+    //Attempt at just getting it to hide at all, after pulling the info from an above section
+    // $('.day-text').hide();
+
+    //Attempt to get it to log details about #Monday
+    $( "#Monday" ).click(function( event ) {
+        alert( event.currentTarget === this ); // true
+    });
+    //Another attempt at getting it to hide stuff at all
+    function test () {
+        $('.day-text').hide();
+        console.log("It did a thing");
+    }
+
+
+    //Well, we got here. 
+    console.log("Got into the last script chunk.");
+
+
+    //My original function which pulls the id from the button on truck_schedule.html so that a unique function is created to show/hide that day's text line
+    function showOneDay (evt) {
+        var day = $(this).data('day');
+        console.log(day);
+        $('.day-text').hide();
+        $('#' + day).show();
+        console.log("showOneDay ran!");
+    }
+    //Calling that function
+    $('.day-button').on('click', showOneDay);
+
+    //One button that shows all .day-text lines, after pushing unique day buttons
+    $('#everyday-button').on('click', function () {
+        $('.day-text').show();
+        console.log("Got into the everyday-button function!");
+    });
+}); 
+
+</script>
 {% endblock %}

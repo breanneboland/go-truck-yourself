@@ -10,7 +10,9 @@ In contrast, the USGS Earthquakes dataset is configured to use a publisher-speci
 
 Heads Up! The order of the results of a query are not implicitly ordered, so if you're paging, make sure you provide an $order clause or at a minimum $order=:id. That will guarantee that the order of your results will be stable as you page through the dataset.
 
+https://data.sfgov.org/resource/jjew-r69b.json?$where=applicant%20like%20%27%25cheese%25%27
 
+https://open.whitehouse.gov/resource/9j92-xfdk.json?$where=position_title%20like%20%27%25ASSISTANT%25%27
 
 
 Mobile Food Schedule: https://data.sfgov.org/Economy-and-Community/Mobile-Food-Schedule/jjew-r69b

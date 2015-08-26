@@ -1,15 +1,14 @@
 
 {% extends 'base.html' %}
 {% block content %}
-
-<h1>The truck's ID is {{ truck_id }}</h1>
-<h2>The truck's name is {{ truck.name }}</h2>
-<h3>Here's an object to unpack: {{ truck_schedule_1 }}</h3>
-<p>The ID of this schedule entry is {{ truck_schedule_1.schedule_line_id }}.</p>
-<p>The schedule for {{ truck_schedule_1.day_of_week }} is {{ truck_schedule_1.start_time }} to {{ truck_schedule_1.end_time }}, and here's the location information: {{ truck_schedule_1.location_description}}. Maybe there's some extra information here? {{ truck_schedule_1.extra_text}}. And hey, here are coordinates: {{ truck_schedule_1.x_coordinate }}, {{ truck_schedule_1.y_coordinate }}.</p>
-
-
 <script src="http://maps.googleapis.com/maps/api/js"></script>
+
+{% if truck %}
+    <h1>{{ truck.name }}</h1>
+    <p id="truck-desc">Some information about this truck: {{ truck.food_items}}</p>
+{% endif %}
+
+
 <!-- <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBca63SUqhkwBRtGvc6kGNQJOiFyQdrX0I"></script> -->
 
 
@@ -60,13 +59,14 @@ function initMap() {
             marker = new google.maps.Marker({
                 position: new google.maps.LatLng(truck.xCoordinate, truck.yCoordinate),
                 map: map,
+                // day: truck.dayOfWeek,
                 title: 'Truck ID: ' + truck.truckName,
             });
 
             // Define the content of the infoWindow
             contentString = (
                 '<div class="window-content">' +
-                    '<p><b>Day and times:</b> ' + truck.dayOfWeek + ', ' + truck.startTime + ' - ' + truck.endTime + '</p><p><b>Additional location/time information: </b>' + truck.locationDescription + '</p><p><b>Some more information, thx SF OpenData: </b>' + truck.extraText + '</p>' +
+                    '<p><b>Day and times:</b> ' + truck.dayOfWeek + ', ' + truck.startTime + ' - ' + truck.endTime + '</p><p><b>Additional location/time information: </b>' + truck.locationDescription + ". " + truck.extraText + '.</p>' +
                 '</div>');
 
             // Inside the loop we call bindInfoWindow passing it the marker,
@@ -103,29 +103,33 @@ function initMap() {
 
     google.maps.event.addDomListener(window, 'load', initMap);
 
+// google.maps.event.addDomListener('click', $('#Monday'), function (e) {
+//     if (marker.day == "Monday") {
+//         bindInfoWindow(marker, map, infoWindow, contentString);
+//     }
+//     else {
+//         marker.setVisible(false);
+//     }
+// }
+
+
 </script>
 
 <script>
-console.log($('#truck-info-text'));
-$('#truck-info-text').html("Random words");
 
 function appendSchedule () {
-    console.log("Did it get here? Yes!");
     $.get('/truck_schedule_times', { truck_id: {{truck_id }} }, function (schedule_info) {
-        console.log('Got into the function!');
         var details = schedule_info;
-        console.log(schedule_info);
         $('#truck-info-text').html(details);
     });
 };
 
 $('#truck-info-text').load(appendSchedule());
 
-$('')
-
 // Could make a CSS selector class on the P connects to the day of the week, and then there are hidden settings (true/false) based on the day of the week the person selects. Checkboxes for each day of the week, and they toggle hide/show based on the class. 
 
-
+//Need to get ID/day from the button clicked and be able to pass it as a variable that can be used to create a class value to give to jQuery. 
 </script>
+
 
 {% endblock %}

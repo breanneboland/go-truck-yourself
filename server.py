@@ -34,33 +34,15 @@ def truck_details(truck_id):
     #Divide into variables to pass into the site itself
 
     # Assigns based on number passed via URL
-    print truck_id
     truck = Truck.query.get(truck_id)
-    print truck
     # Gets truck information from truck info db
     truck_schedule = Truck_schedule.query.filter_by(truck_id=truck_id).all() 
-    #list of schedule objectsby truck ID foreign key - will be empty for some truck IDs
-    print truck_schedule 
+    truck_details = Truck.query.filter_by(id=truck_id).one()
 
+    #list of schedule objectsby truck ID foreign key - will be empty for some truck IDs
 # Overall approach to this data: could do a join to only get IDs in both lists. 
 
-    if truck_schedule:
-        truck_schedule_1 = truck_schedule[0]
-        print "Truck_schedule_1=", truck_schedule_1
-    else:
-        truck_schedule_1 = {"name": "fake data",
-                            "schedule_line_id": "666",
-                            "location_description": "fake data",
-                            "food_items": "fake data",
-                            "expiration_date": "fake data",
-                            "day_of_week": "Any day",
-                            "start_time": "99 AM",
-                            "end_time": "99 PM",
-                            "extra_text": "Here is where extra text might go.",
-                            "x_coordinate": "72.222222",
-                            "y_coordinate": "27"
-                            }
-        print "You got the dummy."
+
         # Added a fake dictionary for now so that it doesn't freak out if there's no information. But now it only uses that fake dictionary, rrrrrrr.
         #Add something here that passes the value if it exists and ignore it if it doesn't so the randomly selected pages don't error if there are no schedule lines! But Jinja ignores variables without value, so there are ways to put this together... Could make a second simpler file to call in case of no schedule lines. 
 
@@ -78,7 +60,7 @@ def truck_details(truck_id):
 #Uses ID from truck detail table to create, then uses same ID on schedule table to add schedule information
 
 
-    return render_template("truck_details.html", truck_id=truck_id, truck=truck, truck_schedule=truck_schedule, truck_schedule_1=truck_schedule_1)
+    return render_template("truck_details.html", truck_id=truck_id, truck=truck, truck_schedule=truck_schedule)
 
 @app.route("/truck_schedule_times")
 def truck_schedule_times():
@@ -98,36 +80,20 @@ def truck_schedule_times():
     # # What if they're two different places in a day? Might need to add permit numbers to that function.
 
     for truck_object in truck_schedule:
-        print "Opened an object!"
-        print "Start time: ", truck_object.start_time
-        print "End time: ", truck_object.end_time
 
         if truck_object.start_time not in schedule_range[truck_object.day_of_week]:
             if len(truck_object.start_time) < 5:
                 revised_time = "0" + truck_object.start_time
-                print "The revised start_time got added!", revised_time
                 schedule_range[truck_object.day_of_week].append(revised_time)
             else:
                 schedule_range[truck_object.day_of_week].append(truck_object.start_time)
-                print "It added the start_time as it was!", truck_object.start_time
 
         if truck_object.end_time not in schedule_range[truck_object.day_of_week]:
             if len(truck_object.end_time) < 5:
                 revised_time = "0" + truck_object.start_time
-                print "This is the revised end_time got added: ", revised_time
                 schedule_range[truck_object.day_of_week].append(revised_time)
             else:
                 schedule_range[truck_object.day_of_week].append(truck_object.end_time)
-                print "It added the end_time as it was!", truck_object.start_time
-
-
-    print "After-function schedule_range: ", schedule_range
-
-    # print "This should be the opening time Sunday: ", min(schedule_range["Sunday"])
-    # print "This should be the closing time Sunday: ", max(schedule_range["Sunday"])
-
-    # sunday_start_time = min(schedule_range["Sunday"])
-    # sunday_close_time = max(schedule_range["Sunday"])
 
     schedule_open_close = {"Sunday": [],
                           "Monday": [],
@@ -142,9 +108,7 @@ def truck_schedule_times():
         if schedule_range[key] == []:
             pass
         else: 
-            print "HERE IS THE KEY, NEW LOOP!", key
             formatted_open = datetime.datetime.strptime(min(schedule_range[key]), "%H:%M")
-            print "Formatted open: ", formatted_open
 
             if formatted_open.hour < 12:
                 augment = " AM"
@@ -152,11 +116,9 @@ def truck_schedule_times():
                 augment = " PM"
 
             open_time = str(formatted_open.hour % 12) + ":" + str(formatted_open.minute) + "0" + augment 
-            print "Open time: ", open_time
             schedule_open_close[key].append(open_time)
 
             formatted_close = datetime.datetime.strptime(max(schedule_range[key]), "%H:%M")
-            print "Formatted close: ", formatted_close
 
             if formatted_close.hour < 12:
                 augment = " AM"
@@ -164,10 +126,7 @@ def truck_schedule_times():
                 augment = " PM"
 
             close_time = str(formatted_close.hour % 12) + ":" + str(formatted_close.minute) + "0" + augment
-            print "Close time: ", close_time
             schedule_open_close[key].append(close_time)
-
-        print schedule_open_close
 
         # if statement that turns numbers over 12 to regular hours and adds AM or PM
         # line that turns numbers into datetime objects and puts correct information on
@@ -228,6 +187,31 @@ def truck_submits_truck():
     #Flash message thanking for submission
 
     return render_template("truck-submission.html")
+
+@app.route('/search-permits')
+def access_sfopendata_api():
+    """Constructs via form and returns via AJAX queries of food truck permits by business or location permit record"""
+
+    return render_template("api-search.html")
+
+
+@app.route('/permit-search-results' )
+def give_sfopendata_results():
+    if request.args.get("dayofweek"):
+        day_of_week = request.args.get("dayofweek")
+    else:
+        day_of_week = ""
+
+    if request.args.get("truckname"):
+        truck_name = request.args.get("truckname")
+    else:
+        truck_name = ""
+
+    #get values submitted via search on /search-permits
+    #add jinja to pass search perimeters to js in api-search-results.html
+    return render_template("api-search-results.html",
+                            day_of_week=day_of_week,
+                            truck_name=truck_name)
 
 @app.route('/about-this-project')
 def about_page():
