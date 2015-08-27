@@ -6,15 +6,18 @@
         <p class="form-text">Search by name: <input type="text" id="truck-name" name="truckname">
         <p>Aim for an exact match - the SODA API doesn't currently support fuzzy sorts in this kind of JSON output. I know, I know.</p>
 
-        <p class="form-text" id="day-selector" name="dayofweek">Search by day of week: <select>
-            <option value="Sunday">Sunday
-            <option value="Monday">Monday
-            <option value="Tuesday">Tuesday
-            <option value="Wednesday">Wednesday
-            <option value="Thursday">Thursday
-            <option value="Friday">Friday
-            <option value="Saturday">Saturday
-        </select>
+        <p class="form-text" id="day-selector" >
+            <!-- <input type="dropdown" name="dayofweek"> -->
+                <select name="dayofweek">
+                Search by day of week: 
+                    <option value="Sunday" default>Sunday
+                    <option value="Monday">Monday
+                    <option value="Tuesday">Tuesday
+                    <option value="Wednesday">Wednesday
+                    <option value="Thursday">Thursday
+                    <option value="Friday">Friday
+                    <option value="Saturday">Saturday
+            </select>
         <input type="submit" id="truck-search-submit" value="Find those trucks!"></p>
     </form>
     

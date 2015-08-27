@@ -144,7 +144,6 @@ def truck_schedule_times():
 def truck_information():
     """JSON information about truck schedules."""
 
-    truck_id = request.args.get("truck_id")
     # Add more args/variables for future filters, then pass down. If [x variable], then (this filtered query).
 
     truck_schedule_info = {
@@ -162,9 +161,52 @@ def truck_information():
         "xCoordinate": truck.x_coordinate,
         "yCoordinate": truck.y_coordinate
     }
-    for truck in Truck_schedule.query.filter_by(truck_id=truck_id).all()}
+    for truck in Truck_schedule.query.filter_by(dayOfWeek=weekday_string).all()}
 
     return jsonify(truck_schedule_info)
+
+@app.route("/all_truck_info.json")
+def all_truck_information():
+    """JSON feed of all truck schedule lines"""
+
+    truck_id = request.args.get("truck_id")
+    day = datetime.datetime.now()
+    print "Day: ", day
+    today_ordinal = day.weekday()
+    print "Today_ordinal: ", today_ordinal
+
+    weekdays = {
+            0: "Monday",
+            1: "Tuesday",
+            2: "Wednesday",
+            3: "Thursday",
+            4: "Friday",
+            5: "Saturday",
+            6: "Sunday"
+    }
+
+    weekday_string = weekdays[today_ordinal]
+    print "Weekday_string: ", weekday_string
+
+    all_truck_schedule_info = {
+        truck.schedule_line_id: {
+        "truckName": truck.truck_name,
+        "truckId": truck.truck_id,
+        "dayOfWeek": truck.day_of_week,
+        "permitNumber": truck.permit_number,
+        "locationDescription": truck.location_description,
+        "extraText": truck.extra_text,
+        "locationId": truck.location_id,
+        "scheduleId": truck.schedule_id,
+        "startTime": truck.start_time,
+        "endTime": truck.end_time,
+        "xCoordinate": truck.x_coordinate,
+        "yCoordinate": truck.y_coordinate
+        }
+        for truck in Truck_schedule.query.filter_by(day_of_week=weekday_string).all()
+    }
+
+    return jsonify(all_truck_schedule_info)
 
 
 @app.route('/neighborhood/<string:neighborhood_name>')
@@ -197,10 +239,7 @@ def access_sfopendata_api():
 
 @app.route('/permit-search-results' )
 def give_sfopendata_results():
-    if request.args.get("dayofweek"):
-        day_of_week = request.args.get("dayofweek")
-    else:
-        day_of_week = ""
+    day_of_week = request.args.get("dayofweek")
 
     if request.args.get("truckname"):
         truck_name = request.args.get("truckname")
@@ -239,10 +278,11 @@ if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
     app.debug = True
+    DebugToolbarExtension(app)
 
     connect_to_db(app)
 
     # Use the DebugToolbar
-    DebugToolbarExtension(app)
+
 
     app.run()

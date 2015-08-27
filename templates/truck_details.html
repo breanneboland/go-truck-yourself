@@ -47,6 +47,8 @@ function initMap() {
     });
     // Keep this out of the loop so it only creates one info window at a time, otherwise, you'd get more and more each time you click a marker. No!
 
+    
+
     $.get('/truck_info.json', {truck_id: {{ truck_id }} }, function (truck_schedule_info) {
         // Attach markers to each truck location in returned JSON
         var truck, marker, contentString;
