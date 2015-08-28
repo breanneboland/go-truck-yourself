@@ -16,7 +16,7 @@ console.log('https://data.sfgov.org/resource/jjew-r69b.json?dayofweekstr={{day_o
 $.getJSON('https://data.sfgov.org/resource/jjew-r69b.json?dayofweekstr={{day_of_week}}&applicant={{truck_name}}', function(data) {
     for (var key in data) {
         var line = data[key];
-        var search_text = '<p><b>' + '{{ day_of_week }}' + ':' + line.dayofweekstr + '</p><p>Truck name:' + line.applicant + '</p><p>Start time: ' + line.starttime + '</p><p>End time: ' + line.endtime + '</p><p>Description: ' + line.optionaltext + '</p><p>Location: ' + line.location + '.</p>';
+        var search_text = '<p><b>' + '{{ day_of_week }}' + ': </p><p>Truck name: ' + line.applicant + '</p><p><a href="/truck/' + line.truck_id + '">Learn more about this truck.</a></p><p>Operating hours: ' + line.starttime + '-' + line.endtime + '</p><p>Description: ' + line.optionaltext + '</p><p>Location: <a href="https://www.google.com/maps/place/' + line.location + ' san francisco" target="_blank">' + line.location + '.</p>';
         $('#api-query-results').append(search_text);
     }
 }); 
@@ -26,3 +26,6 @@ $.getJSON('https://data.sfgov.org/resource/jjew-r69b.json?dayofweekstr={{day_of_
 
 Why is it not passing variables over from the server? 
 Am I doing the looping through JSON objects correctly? 
+
+<p><a href="/truck/' + truck.truckId + '">Learn more about this truck.</a></p>
+<p><a href="/truck/"' + line.truck_id + '"Learn more about this truck.</a></p>

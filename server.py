@@ -4,6 +4,7 @@ from food_truck_db_seed import Truck, Truck_schedule, connect_to_db, db
 from flask_debugtoolbar import DebugToolbarExtension
 import json
 import datetime
+import random
 
 # from model import tbd
 
@@ -142,12 +143,18 @@ def truck_schedule_times():
 
 @app.route("/truck_info.json")
 def truck_information():
-    """JSON information about truck schedules."""
+    """JSON information about truck schedules, pulled by truck ID only. Made for truck_details.html-truck/int page."""
 
     # Add more args/variables for future filters, then pass down. If [x variable], then (this filtered query).
+    truck_id = request.args.get("truck_id")
+    print truck_id
+    trucks = Truck_schedule.query.filter_by(truck_id=truck_id).all()
 
-    truck_schedule_info = {
-        truck.schedule_line_id: {
+    truck_schedule_info = {}
+
+    for truck in trucks: 
+    # truck_schedule_info = {
+        temp_dict = {
         "truckName": truck.truck_name,
         "truckId": truck.truck_id,
         "dayOfWeek": truck.day_of_week,
@@ -160,16 +167,17 @@ def truck_information():
         "endTime": truck.end_time,
         "xCoordinate": truck.x_coordinate,
         "yCoordinate": truck.y_coordinate
-    }
-    for truck in Truck_schedule.query.filter_by(dayOfWeek=weekday_string).all()}
+        }
+
+        truck_schedule_info[truck.schedule_line_id] = temp_dict
+    # for truck in Truck_schedule.query.filter_by(truck_id=truck_id).all()}
 
     return jsonify(truck_schedule_info)
 
 @app.route("/all_truck_info.json")
 def all_truck_information():
-    """JSON feed of all truck schedule lines"""
+    """JSON feed of all truck schedule lines with adaptable query."""
 
-    truck_id = request.args.get("truck_id")
     day = datetime.datetime.now()
     print "Day: ", day
     today_ordinal = day.weekday()
@@ -187,6 +195,21 @@ def all_truck_information():
 
     weekday_string = weekdays[today_ordinal]
     print "Weekday_string: ", weekday_string
+
+    # if request.args.get("day_of_week") != None:
+    #     day_of_week = request.args.get("day_of_week")
+    #     query = Truck_schedule.query.filter_by(day_of_week=day_of_week).all()
+    # else:
+    #     day_of_week = weekday_string
+
+    # if request.args.get("truck_id") != None:
+    #     truck_id = request.args.get("truck_id")
+    #     query = Truck_schedule.query.filter_by(truck_id=truck_id).all()
+
+    # if truck_id and day_of_week:
+    #     query = Truck_schedule.query.filter_by(day_of_week=day_of_week, truck_id=truck_id).all()
+
+
 
     all_truck_schedule_info = {
         truck.schedule_line_id: {
@@ -208,6 +231,31 @@ def all_truck_information():
 
     return jsonify(all_truck_schedule_info)
 
+@app.route("/truck_info_by_day.json")
+def truck_information_by_day():
+    """JSON feed of all truck schedule lines with adaptable query."""
+
+    day = request.args.get("dayOfWeek")
+
+    truck_schedule_info_day = {
+        truck.schedule_line_id: {
+        "truckName": truck.truck_name,
+        "truckId": truck.truck_id,
+        "dayOfWeek": truck.day_of_week,
+        "permitNumber": truck.permit_number,
+        "locationDescription": truck.location_description,
+        "extraText": truck.extra_text,
+        "locationId": truck.location_id,
+        "scheduleId": truck.schedule_id,
+        "startTime": truck.start_time,
+        "endTime": truck.end_time,
+        "xCoordinate": truck.x_coordinate,
+        "yCoordinate": truck.y_coordinate
+        }
+        for truck in Truck_schedule.query.filter_by(day_of_week=day).all()
+    }
+
+    return jsonify(truck_schedule_info_day)
 
 @app.route('/neighborhood/<string:neighborhood_name>')
 def neighborhood_page(neighborhood_name):
@@ -269,10 +317,16 @@ def get_random_truck():
     """ 
     Presents a random truck when the user pushes a button (ideally one that's open, if possible). Could it use geographic data to find the closest one?). Needs a function to choose a random row number from the API db.
     """
-    
+    rand = random.randrange(0, Truck.query.count()) 
 
-    return render_template("random-truck.html")
+    url = "/truck/" + str(rand)
 
+    return redirect(url)
+
+@app.route('/test')
+def test():
+    """ Why don't things work, sigh """
+    return render_template("experiment.html")
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point

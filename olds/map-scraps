@@ -1,0 +1,241 @@
+<script>
+
+
+
+// function getDayMap(day){
+//     return function dayMap(day) {
+//         console.log("Got into dayMap at all.");
+//         var dayOfWeek = day;
+//         console.log(dayOfWeek);
+//         var mapOptions = {
+//             zoom: 12,
+//             center: new google.maps.LatLng(37.756366, -122.438632)
+//         };
+
+//         var map;
+
+//         map = new google.maps.Map(
+//             document.getElementById("general-map"),
+//             mapOptions);
+
+//         var input = document.getElementById('map-input');
+//         var searchBox = new google.maps.places.SearchBox(input);
+
+//         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+//         var autocomplete = new google.maps.places.Autocomplete(input);
+//         // map.addListener('place_changed', function() {
+//         //     alert("Got into addListener on line 69!");
+//         //     searchBox.setBounds(map.getBounds());
+//         // });
+
+//         google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                
+//                 var place = autocomplete.getPlace();
+//                 var x = place.geometry.location.G;
+//                 var y = place.geometry.location.K;
+//                 document.getElementById('city2').value = place.name;
+//                 document.getElementById('cityLat').value = place.geometry.location.lat();
+//                 document.getElementById('cityLng').value = place.geometry.location.lng();
+//                 var location = autocomplete;
+//                 map.setZoom(16);
+//                 map.setCenter(new google.maps.LatLng(x, y));
+//                 return false;
+//             });
+        
+//         var infoWindow = new google.maps.InfoWindow({
+//             width: 100
+//         });
+//         $.get('/truck_info_by_day.json', { dayOfWeek: dayOfWeek }, function (truck_schedule_info) {
+//             // Attach markers to each truck location in returned JSON
+
+//             console.log("Truck schedule info should be here:");
+//             console.log(truck_schedule_info);
+//             var truck, marker, contentString;
+                    
+//             for (var key in truck_schedule_info) {
+                
+//                 truck = truck_schedule_info[key];
+
+//                 marker = new google.maps.Marker({
+//                     position: new google.maps.LatLng(truck.xCoordinate, truck.yCoordinate),
+//                     map: map,
+//                     title: 'Truck ID: ' + truck.truckName
+//                 });
+
+//                 contentString = (
+//                     '<div class="window-content">' +
+//                         '<p><b>Truck name: </b>' + truck.truckName + '</p><p><a href="/truck/' + truck.truckId + '">Learn more about this truck.</a></p><p><b>Day and times:</b> ' + truck.dayOfWeek + ', ' + truck.startTime + ' - ' + truck.endTime + '</p><p><b>Additional truck information: </b>' + truck.locationDescription + ". " + truck.extraText + '</p></div>');
+
+//                 bindInfoWindow(marker, map, infoWindow, contentString);
+
+//             }
+
+//         });
+
+//         function bindInfoWindow(marker, map, infoWindow, html) {
+//             google.maps.event.addListener(marker, 'click', function () {
+//                 infoWindow.close();
+//                 infoWindow.setContent(html);
+//                 infoWindow.open(map, marker);
+//             });
+//         };
+//     };
+// };
+
+// function initMap() {
+//   var mapDiv = document.getElementById('map');
+//   var map = new google.maps.Map(mapDiv, {
+//     zoom: 8,
+//     center: new google.maps.LatLng(-34.397, 150.644)
+//   });
+
+//   // We add a DOM event here to show an alert if the DIV containing the
+//   // map is clicked.
+//   google.maps.event.addDomListener(mapDiv, 'click', function() {
+//     window.alert('Map was clicked!');
+//   });
+// }   
+// var mapCall = google.maps.event.addDomListener(window, 'load', dayMap);
+
+// var dayButtons = $(".day-button");
+
+// google.maps.event.addDomListener(dayButtons, 'click', function() {
+//     console.log("Got into the function attached to the map recall.");
+//     var day = $(this).data('day');
+//     console.log(day);
+//     $('#general-map').empty(); 
+//     $('#city2').before('<input id="map-input" class="controls" type="text" placeholder="Enter your address!">');   
+//     getDayMap(day);
+//     console.log("Read all lines of the function");
+//     });
+
+$(".day-button").click(function(){
+    console.log("day-button click function");
+    var day = $(this).data('day');
+    console.log("This is the day");
+    console.log(day);
+    $('#general-map').empty(); 
+    $('#city2').before('<input id="map-input" class="controls" type="text" placeholder="Enter your address!">');   
+    // google.maps.event.addDomListener(mapDiv, 'click', getDayMap(day));
+    function getDayMap(day) {
+        function dayMap(day) {
+            console.log("Got into dayMap at all.");
+            var dayOfWeek = day;
+            console.log(dayOfWeek);
+            var mapOptions = {
+                zoom: 12,
+                center: new google.maps.LatLng(37.756366, -122.438632)
+            };
+
+            var map;
+
+            map = new google.maps.Map(
+                document.getElementById("general-map"),
+                mapOptions);
+
+            var input = document.getElementById('map-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            // map.addListener('place_changed', function() {
+            //     alert("Got into addListener on line 69!");
+            //     searchBox.setBounds(map.getBounds());
+            // });
+
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                    
+                    var place = autocomplete.getPlace();
+                    var x = place.geometry.location.G;
+                    var y = place.geometry.location.K;
+                    document.getElementById('city2').value = place.name;
+                    document.getElementById('cityLat').value = place.geometry.location.lat();
+                    document.getElementById('cityLng').value = place.geometry.location.lng();
+                    var location = autocomplete;
+                    map.setZoom(16);
+                    map.setCenter(new google.maps.LatLng(x, y));
+                    return false;
+                });
+            
+            var infoWindow = new google.maps.InfoWindow({
+                width: 100
+            });
+            $.get('/truck_info_by_day.json', { dayOfWeek: dayOfWeek }, function (truck_schedule_info) {
+                // Attach markers to each truck location in returned JSON
+
+                console.log("Truck schedule info should be here:");
+                console.log(truck_schedule_info);
+                var truck, marker, contentString;
+                        
+                for (var key in truck_schedule_info) {
+                    
+                    truck = truck_schedule_info[key];
+
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(truck.xCoordinate, truck.yCoordinate),
+                        map: map,
+                        title: 'Truck ID: ' + truck.truckName
+                    });
+
+                    contentString = (
+                        '<div class="window-content">' +
+                            '<p><b>Truck name: </b>' + truck.truckName + '</p><p><a href="/truck/' + truck.truckId + '">Learn more about this truck.</a></p><p><b>Day and times:</b> ' + truck.dayOfWeek + ', ' + truck.startTime + ' - ' + truck.endTime + '</p><p><b>Additional truck information: </b>' + truck.locationDescription + ". " + truck.extraText + '</p></div>');
+
+                    bindInfoWindow(marker, map, infoWindow, contentString);
+
+                    }
+
+                });
+
+                function bindInfoWindow(marker, map, infoWindow, html) {
+                    google.maps.event.addListener(marker, 'click', function () {
+                        infoWindow.close();
+                        infoWindow.setContent(html);
+                        infoWindow.open(map, marker);
+                    });
+                };
+            };
+        });
+    });
+
+    // function initMap() {
+    //   var mapDiv = document.getElementById('map');
+    //   var map = new google.maps.Map(mapDiv, {
+    //     zoom: 8,
+    //     center: new google.maps.LatLng(-34.397, 150.644)
+    //   });
+
+    //   // We add a DOM event here to show an alert if the DIV containing the
+    //   // map is clicked.
+    //   google.maps.event.addDomListener(mapDiv, 'click', function() {
+    //     window.alert('Map was clicked!');
+    //   });
+    // }  
+    google.maps.event.addDomListener(window, 'load', getDayMap); 
+    console.log("Read all lines of the function");
+;
+
+
+var dayButton = $(".day-button")
+var day = $(this).data('day');
+
+// google.maps.event.addDomListener(dayButton, 'click', getDayMap(day));
+
+//  function showOneDay (evt) {
+//     var dayOfWeek = $(this).data('data-day');
+//     console.log(day);
+//     $('#general-map').empty();
+//     google.maps.event.addDomListener(window, 'load', dayMap);
+
+//     $('#' + day).show();
+//     console.log("showOneDay ran!");
+// }
+//Calling that function
+// $('.day-button').on('click', showOneDay);
+
+
+
+
+</script>
