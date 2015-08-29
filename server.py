@@ -196,21 +196,6 @@ def all_truck_information():
     weekday_string = weekdays[today_ordinal]
     print "Weekday_string: ", weekday_string
 
-    # if request.args.get("day_of_week") != None:
-    #     day_of_week = request.args.get("day_of_week")
-    #     query = Truck_schedule.query.filter_by(day_of_week=day_of_week).all()
-    # else:
-    #     day_of_week = weekday_string
-
-    # if request.args.get("truck_id") != None:
-    #     truck_id = request.args.get("truck_id")
-    #     query = Truck_schedule.query.filter_by(truck_id=truck_id).all()
-
-    # if truck_id and day_of_week:
-    #     query = Truck_schedule.query.filter_by(day_of_week=day_of_week, truck_id=truck_id).all()
-
-
-
     all_truck_schedule_info = {
         truck.schedule_line_id: {
         "truckName": truck.truck_name,
@@ -231,31 +216,65 @@ def all_truck_information():
 
     return jsonify(all_truck_schedule_info)
 
+@app.route('/day/<string:dayOfWeek>')
+def test(dayOfWeek):
+    """ Why don't things work, sigh """
+    print dayOfWeek
+
+    truck_schedule = Truck_schedule.query.filter_by(day_of_week=dayOfWeek).all() 
+
+    return render_template("daypage.html", dayOfWeek = dayOfWeek)
+
 @app.route("/truck_info_by_day.json")
 def truck_information_by_day():
     """JSON feed of all truck schedule lines with adaptable query."""
 
     day = request.args.get("dayOfWeek")
+    day_trucks = Truck_schedule.query.filter_by(day_of_week=day).all()
 
-    truck_schedule_info_day = {
-        truck.schedule_line_id: {
-        "truckName": truck.truck_name,
-        "truckId": truck.truck_id,
-        "dayOfWeek": truck.day_of_week,
-        "permitNumber": truck.permit_number,
-        "locationDescription": truck.location_description,
-        "extraText": truck.extra_text,
-        "locationId": truck.location_id,
-        "scheduleId": truck.schedule_id,
-        "startTime": truck.start_time,
-        "endTime": truck.end_time,
-        "xCoordinate": truck.x_coordinate,
-        "yCoordinate": truck.y_coordinate
-        }
-        for truck in Truck_schedule.query.filter_by(day_of_week=day).all()
-    }
+    truck_schedule_info = {}
 
-    return jsonify(truck_schedule_info_day)
+    for truck in day_trucks: 
+        temp_dict = {
+            "truckName": truck.truck_name,
+            "truckId": truck.truck_id,
+            "dayOfWeek": truck.day_of_week,
+            "permitNumber": truck.permit_number,
+            "locationDescription": truck.location_description,
+            "extraText": truck.extra_text,
+            "locationId": truck.location_id,
+            "scheduleId": truck.schedule_id,
+            "startTime": truck.start_time,
+            "endTime": truck.end_time,
+            "xCoordinate": truck.x_coordinate,
+            "yCoordinate": truck.y_coordinate
+            }
+ 
+        truck_schedule_info[truck.schedule_line_id] = temp_dict
+
+    return jsonify(truck_schedule_info)
+
+@app.route('/search')
+def search_db():
+    """Does a text search of the truck name and description fields, returns list of trucks with link to truck pages"""
+    search_term = request.args.get("search-text")
+    search_term_formatted = '%' + search_term + '%'
+    print search_term_formatted
+    #Search Truck name, location_description, food_items
+    #Search Truck_schedule location_description, extra_text
+
+# if you remove the or_(x,y,z) and just filter on x (ie, ...filter(Truck.location_Description.contains(search_term))
+
+#Need to do something to make sure the results are unique by name if queried from truck. Or collect them by name for half-dupes from schedule query. 
+    truck_search_results = Truck.query.filter(Truck.name.ilike(search_term_formatted)).all()
+    print truck_search_results
+    print truck_search_results[0].name
+        # , Truck.name.like(search_term_formatted), Truck.food_items.like(search_term_formatted)).all() location_description
+    # permit_search_results = Truck_schedule.query.filter(or_(Truck_schedule.location_description.like(search_term_formatted), Truck_schedule.extra_text.like(search_term_formatted)).all()
+
+    # search_results = truck_search_results + permit_search_results
+
+    return render_template("search_results.html", search_results=truck_search_results)
 
 @app.route('/neighborhood/<string:neighborhood_name>')
 def neighborhood_page(neighborhood_name):
@@ -323,10 +342,6 @@ def get_random_truck():
 
     return redirect(url)
 
-@app.route('/test')
-def test():
-    """ Why don't things work, sigh """
-    return render_template("experiment.html")
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
