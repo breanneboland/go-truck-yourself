@@ -5,6 +5,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 import json
 import datetime
 import random
+from sqlalchemy import or_, distinct
 
 # from model import tbd
 
@@ -259,22 +260,43 @@ def search_db():
     """Does a text search of the truck name and description fields, returns list of trucks with link to truck pages"""
     search_term = request.args.get("search-text")
     search_term_formatted = '%' + search_term + '%'
-    print search_term_formatted
+    print "search_term_formatted"
     #Search Truck name, location_description, food_items
     #Search Truck_schedule location_description, extra_text
 
 # if you remove the or_(x,y,z) and just filter on x (ie, ...filter(Truck.location_Description.contains(search_term))
 
 #Need to do something to make sure the results are unique by name if queried from truck. Or collect them by name for half-dupes from schedule query. 
-    truck_search_results = Truck.query.filter(Truck.name.ilike(search_term_formatted)).all()
-    print truck_search_results
-    print truck_search_results[0].name
+    search_results = Truck_schedule.query.filter(or_(Truck_schedule.truck_name.ilike(search_term_formatted), Truck_schedule.extra_text.ilike(search_term_formatted))).distinct(Truck_schedule.truck_id).all()
+
+    print search_results
+    # truck_name_search_results = Truck_schedule.query.filter(Truck_schedule.truck_name.ilike(search_term_formatted)).all()
+    # truck_text_search_results = Truck_schedule.query.filter(Truck_schedule.extra_text.ilike(search_term_formatted)).all()
+    
+
+    # if truck_name_search_results:
+    #     pass
+    # else:
+    #     truck_name_search_results = None
+
+    # if truck_text_search_results:
+    #     pass
+    # else:
+    #     truck_text_search_results = None
+
+    if search_results:
+        pass
+    else:
+        search_results = None
+
         # , Truck.name.like(search_term_formatted), Truck.food_items.like(search_term_formatted)).all() location_description
     # permit_search_results = Truck_schedule.query.filter(or_(Truck_schedule.location_description.like(search_term_formatted), Truck_schedule.extra_text.like(search_term_formatted)).all()
 
     # search_results = truck_search_results + permit_search_results
 
-    return render_template("search_results.html", search_results=truck_search_results)
+    return render_template("search_results.html", search_term=search_term, search_results=search_results)
+
+        # name_search_results=truck_name_search_results, text_search_results=truck_text_search_results)
 
 @app.route('/neighborhood/<string:neighborhood_name>')
 def neighborhood_page(neighborhood_name):

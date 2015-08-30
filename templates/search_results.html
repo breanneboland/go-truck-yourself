@@ -1,10 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<p>You searched for {{ search_term }}. Here's what SF OpenData has for you!</p>
+{% if search_results %}
+    <div id="#search-results-table"><table>
+        <tr>
+            <th>Truck Name</th>
+            <th>Truck Description</th>
+        </tr>
+    {% for thing in search_results %}
+        <tr>
+            <td class="search-text"><a href="/truck/{{ thing.truck_id }}">{{ thing.truck_name }}</a></td>
+            <td class="search-text">{{ thing.extra_text }}</td>
+        </tr>
+    {% endfor %}
+    </table></div>
+    {% else %}
+    <p>No results! Maybe it's time to consider your own food truck.</p>
+{% endif %}
 
+<script>
+console.log("script!");
 
-{% for thing in search_results %}
-    {{ thing.name }}
-{% endfor %}
+//Come back to this later. 
 
+// function getElements() {
+//     console.log("Got in!")
+//     var divContent = document.getElementByClass("search-results-table").innerHTML;
+//     divContent = divContent.replace({{search_term}}, "<b>" + {{search_term}} + "</b>");
+//     console.log(divContent);
+//     document.getElementById("search-results-table").innerHTML = divContent;
+// }
+// getElements();
+// </script>
 {% endblock %}

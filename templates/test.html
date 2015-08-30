@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+
+<p>The homepage is actually showing up! Here's what to add later:</p>
+<p>Relevant details</p>
+<p>The main map, centered on SF or with the user's location</p>
+<p>Details on what the site does and how to use it</p>
+<p>Search</p>
+
+<div id="day-buttons">
+    <a href="/day/Sunday" class="button">Sunday</a>
+    <a href="/day/Monday" class="button">Monday</a>
+    <a href="/day/Tuesday" class="button">Tuesday</a>
+    <a href="/day/Wednesday" class="button">Wednesday</a>
+    <a href="/day/Thursday" class="button">Thursday</a>
+    <a href="/day/Friday" class="button">Friday</a>
+    <a href="/day/Saturday" class="button">Saturday</a>
+</div>
+<div id="general-map"></div>
+
+
+
+<script>
+
+function initMap() {
+    var map;
+    var mapOptions = {
+        zoom: 12,
+        center: new google.maps.LatLng(37.756366, -122.438632)
+    };
+    map = new google.maps.Map(
+        document.getElementById("general-map"),
+        mapOptions);
+        // Retrieving the information with AJAX
+    
+    var infoWindow = new google.maps.InfoWindow({
+        width: 100
+    });
+
+    $.get('/all_truck_info.json', function (truck_schedule_info) {
+        console.log(truck_schedule_info);
+        var truck, marker, contentString;
+                
+        for (var key in truck_schedule_info) {
+            
+            truck = truck_schedule_info[key];
+
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(truck.xCoordinate, truck.yCoordinate),
+                map: map,
+                title: 'Truck ID: ' + truck.truckName,
+            });
+
+            contentString = (
+                '<div class="window-content">' +
+                    '<p><b>Truck name: </b>' + truck.truckName + '</p><p><a href="/truck/' + truck.truckId + '">Learn more about this truck.</a></p><p><b>Day and times:</b> ' + truck.dayOfWeek + ', ' + truck.startTime + ' - ' + truck.endTime + '</p><p><b>Additional truck information: </b>' + truck.locationDescription + ". " + truck.extraText + '</p></div>');
+
+            bindInfoWindow(marker, map, infoWindow, contentString);
+        }
+    });
+
+    function bindInfoWindow(marker, map, infoWindow, html) {
+        google.maps.event.addListener(marker, 'click', function () {
+            infoWindow.close();
+            infoWindow.setContent(html);
+            infoWindow.open(map, marker);
+        });
+    }
+}
+google.maps.event.addDomListener(window, 'load', initMap);
+</script>
+
+<script>
+
+
+function addSunday () {
+    $.get('/test', function (results) {
+        var mapText = results;
+        $("#sunday-map").html("/test");
+    })
+}
+
+$(document).ready(addSunday);
+
+</script>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
