@@ -260,8 +260,12 @@ def record_truck_submission():
     truck_name = request.args.get("truck-name")
     if request.args.get("truck-url"):
         truck_url = request.args.get("truck-url")
+    else:
+        truck_url = ""
     if request.args.get("truck-deets"):
         truck_info = request.args.get("truck-deets")
+    else: 
+        truck_info = ""
     
     if truck_url and truck_info:
         truck_line = "|".join([truck_name, truck_url, truck_info])
@@ -277,7 +281,7 @@ def record_truck_submission():
     this_file.write(truck_line)
     this_file.close()
 
-    return render_template("submitted.html")
+    return render_template("submitted.html", truck_info=truck_info)
 
 
 @app.route('/search-permits')
@@ -318,11 +322,19 @@ def get_random_truck():
     """
 
     #Add validator here to make sure a schedule query with the returned ID actually has results; if not, choose a new number
-    rand = random.randrange(0, Truck.query.count()) 
+    #Still not working. Revisit. 
+    valid_id_returned = False
+    
+    while valid_id_returned == False:
+        rand = random.randrange(0, Truck_schedule.query.count()) 
+        truck_object = Truck.query.filter_by(id=rand).first()
 
-    url = "/truck/" + str(rand)
+        if truck_object:
+            valid_id_returned = True
+            url = "/truck/" + str(rand)
+    
+    return redirect(url)        
 
-    return redirect(url)
 
 @app.route('/test')
 def test_stuff():
