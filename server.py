@@ -41,34 +41,13 @@ def truck_details(truck_id):
     truck_schedule = Truck_schedule.query.filter_by(truck_id=truck_id).all() 
     truck_details = Truck.query.filter_by(id=truck_id).one()
 
-    #list of schedule objectsby truck ID foreign key - will be empty for some truck IDs
-# Overall approach to this data: could do a join to only get IDs in both lists. 
-
-
-        # Added a fake dictionary for now so that it doesn't freak out if there's no information. But now it only uses that fake dictionary, rrrrrrr.
-        #Add something here that passes the value if it exists and ignore it if it doesn't so the randomly selected pages don't error if there are no schedule lines! But Jinja ignores variables without value, so there are ways to put this together... Could make a second simpler file to call in case of no schedule lines. 
-
-    #going to need some if-else Jinja stuff to account for blank cells. Missing coordinates: "This truck didn't tell SF its coordinates, but here's its address: {{ blah blah }}." Will also need to convert 24-hour time to American-friendly time.
-
-
-#JS: JSON.stringify(jsObject);        // --> a string of valid JSON (to send)
-# JSON.parse(jsonString);          // --> a javascript object
-# Python:
-# json.dumps(python_dict)          # --> a string of valid JSON (to send)
-# json.loads(json_string)          # --> a Python dict
-# return jsonify(days=2, cost=5)
-
-#Figure out what ID I will use for trucks
-#Uses ID from truck detail table to create, then uses same ID on schedule table to add schedule information
-
-
     return render_template("truck_details.html", truck_id=truck_id, truck=truck, truck_schedule=truck_schedule)
 
 @app.route("/truck_schedule_times")
 def truck_schedule_times():
+    """Returns formatted times for each day, filtering by truck ID"""
     truck_id = request.args.get("truck_id")
     truck_schedule = Truck_schedule.query.filter_by(truck_id=truck_id).all() 
-
 
     days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     schedule_range = {"Sunday": [],
@@ -130,14 +109,6 @@ def truck_schedule_times():
             close_time = str(formatted_close.hour % 12) + ":" + str(formatted_close.minute) + "0" + augment
             schedule_open_close[key].append(close_time)
 
-        # if statement that turns numbers over 12 to regular hours and adds AM or PM
-        # line that turns numbers into datetime objects and puts correct information on
-        # part that adds this formatted bit to the two-item list this will ultimately pass to the page, appended to each day-key
-        # do it for both min and max
-
-    # schedule_range_json = json.dumps(schedule_open_close)
-    # print "This is the jsonified version: ", schedule_range_json
-
     return render_template("truck_schedule.html",
                             days=days,
                             schedule_open_close=schedule_open_close)
@@ -146,7 +117,6 @@ def truck_schedule_times():
 def truck_information():
     """JSON information about truck schedules, pulled by truck ID only. Made for truck_details.html-truck/int page."""
 
-    # Add more args/variables for future filters, then pass down. If [x variable], then (this filtered query).
     truck_id = request.args.get("truck_id")
     print truck_id
     trucks = Truck_schedule.query.filter_by(truck_id=truck_id).all()
@@ -177,7 +147,7 @@ def truck_information():
 
 @app.route("/all_truck_info.json")
 def all_truck_information():
-    """JSON feed of all truck schedule lines with adaptable query."""
+    """JSON feed of all truck schedule lines, returning those open today, as determined by datetime.now."""
 
     day = datetime.datetime.now()
     print "Day: ", day
@@ -260,49 +230,21 @@ def search_db():
     """Does a text search of the truck name and description fields, returns list of trucks with link to truck pages"""
     search_term = request.args.get("search-text")
     search_term_formatted = '%' + search_term + '%'
-    print "search_term_formatted"
-    #Search Truck name, location_description, food_items
-    #Search Truck_schedule location_description, extra_text
-
-# if you remove the or_(x,y,z) and just filter on x (ie, ...filter(Truck.location_Description.contains(search_term))
-
-#Need to do something to make sure the results are unique by name if queried from truck. Or collect them by name for half-dupes from schedule query. 
+ 
     search_results = Truck_schedule.query.filter(or_(Truck_schedule.truck_name.ilike(search_term_formatted), Truck_schedule.extra_text.ilike(search_term_formatted))).distinct(Truck_schedule.truck_id).all()
-
-    print search_results
-    # truck_name_search_results = Truck_schedule.query.filter(Truck_schedule.truck_name.ilike(search_term_formatted)).all()
-    # truck_text_search_results = Truck_schedule.query.filter(Truck_schedule.extra_text.ilike(search_term_formatted)).all()
-    
-
-    # if truck_name_search_results:
-    #     pass
-    # else:
-    #     truck_name_search_results = None
-
-    # if truck_text_search_results:
-    #     pass
-    # else:
-    #     truck_text_search_results = None
 
     if search_results:
         pass
     else:
         search_results = None
 
-        # , Truck.name.like(search_term_formatted), Truck.food_items.like(search_term_formatted)).all() location_description
-    # permit_search_results = Truck_schedule.query.filter(or_(Truck_schedule.location_description.like(search_term_formatted), Truck_schedule.extra_text.like(search_term_formatted)).all()
-
-    # search_results = truck_search_results + permit_search_results
-
     return render_template("search_results.html", search_term=search_term, search_results=search_results)
 
-        # name_search_results=truck_name_search_results, text_search_results=truck_text_search_results)
-
-@app.route('/neighborhood/<string:neighborhood_name>')
-def neighborhood_page(neighborhood_name):
-    """Gives neighborhood information and shows local trucks for it, by day/time"""
+# @app.route('/neighborhood/<string:neighborhood_name>')
+# def neighborhood_page(neighborhood_name):
+#     """Gives neighborhood information and shows local trucks for it, by day/time"""
     
-    return render_template("neighborhood_details.html")
+#     return render_template("neighborhood_details.html")
     
 @app.route('/add-a-truck')
 def user_submits_truck():
@@ -312,12 +254,31 @@ def user_submits_truck():
 
     return render_template("submissions.html")
 
-@app.route('/add-my-truck')
-def truck_submits_truck():
-    """Truck owners can submit truck information for inclusion"""
-    #Flash message thanking for submission
+@app.route('/truck-submitted')
+def record_truck_submission():
+    """Records submitted truck information to system txt file; tells users thank you."""
+    truck_name = request.args.get("truck-name")
+    if request.args.get("truck-url"):
+        truck_url = request.args.get("truck-url")
+    if request.args.get("truck-deets"):
+        truck_info = request.args.get("truck-deets")
+    
+    if truck_url and truck_info:
+        truck_line = "|".join([truck_name, truck_url, truck_info])
+    elif truck_url:
+        truck_line = "|".join([truck_name, truck_url, " "])
+    elif truck_info:
+        truck_line = "|".join([truck_name, " ", truck_info])
+    else:
+        truck_line = truck_name + " | | "
 
-    return render_template("truck-submission.html")
+    print truck_line
+    this_file = open("truck-submissions.txt", "a")
+    this_file.write(truck_line)
+    this_file.close()
+
+    return render_template("submitted.html")
+
 
 @app.route('/search-permits')
 def access_sfopendata_api():
@@ -335,8 +296,6 @@ def give_sfopendata_results():
     else:
         truck_name = ""
 
-    #get values submitted via search on /search-permits
-    #add jinja to pass search perimeters to js in api-search-results.html
     return render_template("api-search-results.html",
                             day_of_week=day_of_week,
                             truck_name=truck_name)
@@ -347,7 +306,6 @@ def about_page():
     About page for this project, detailing technology and directing to GitHub page
     """
     
-
     return render_template("about.html")
 
 
@@ -358,12 +316,19 @@ def get_random_truck():
     """ 
     Presents a random truck when the user pushes a button (ideally one that's open, if possible). Could it use geographic data to find the closest one?). Needs a function to choose a random row number from the API db.
     """
+
+    #Add validator here to make sure a schedule query with the returned ID actually has results; if not, choose a new number
     rand = random.randrange(0, Truck.query.count()) 
 
     url = "/truck/" + str(rand)
 
     return redirect(url)
 
+@app.route('/test')
+def test_stuff():
+    """Playing with Google Maps marker clustering"""
+
+    return render_template("test.html")
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point

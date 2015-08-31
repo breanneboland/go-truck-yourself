@@ -1,13 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 
-<p>The homepage is actually showing up! Here's what to add later:</p>
-<p>Relevant details</p>
-<p>The main map, centered on SF or with the user's location</p>
-<p>Details on what the site does and how to use it</p>
-<p>Search</p>
-
+<p class="homepage-text">This is a paragraph that will ultimately go on top of the map, offering a brief explanation of the app.</p>
+<p class="homepage-text">This also goes on top of the map, with some tech details. The buttons will go below this, atop the map. Extremely brief instructions.</p>
 <div id="day-buttons">
     <a href="/day/Sunday" class="button">Sunday</a>
     <a href="/day/Monday" class="button">Monday</a>
@@ -17,6 +13,9 @@
     <a href="/day/Friday" class="button">Friday</a>
     <a href="/day/Saturday" class="button">Saturday</a>
 </div>
+
+
+<input id="map-input" class="controls" type="text" placeholder="Enter your address!">
 <div id="general-map"></div>
 
 
@@ -33,6 +32,11 @@ function initMap() {
         document.getElementById("general-map"),
         mapOptions);
         // Retrieving the information with AJAX
+    
+    var input = document.getElementById('map-input');
+    var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
     
     var infoWindow = new google.maps.InfoWindow({
         width: 100
@@ -70,26 +74,6 @@ function initMap() {
 }
 google.maps.event.addDomListener(window, 'load', initMap);
 </script>
-
-<script>
-
-
-function addSunday () {
-    $.get('/test', function (results) {
-        var mapText = results;
-        $("#sunday-map").html("/test");
-    })
-}
-
-$(document).ready(addSunday);
-
-</script>
-
-
-
-
-
-
 
 
 

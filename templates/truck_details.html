@@ -3,26 +3,14 @@
 <script src="http://maps.googleapis.com/maps/api/js"></script>
 
 {% if truck %}
-    <h1>{{ truck.name }}</h1>
-    <p id="truck-desc">Some information about this truck: {{ truck.food_items}}</p>
+    <h1 id="truck-name">{{ truck.name }}</h1>
+    <p id="truck-desc">This truck offers {{ truck.food_items}}. Check out its schedule and daily locations below.</p>
 {% endif %}
 
-
-<!-- <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBca63SUqhkwBRtGvc6kGNQJOiFyQdrX0I"></script> -->
-
-
-<div id="truck-location-map">
-    <div id="day-buttons"></div>
-</div>
+<div id="day-buttons"></div>
+<div id="truck-location-map"></div>
 
 <div id="truck-info-text"></div>
-<div id="test-div"></div>
-
-<p>Text block next to map</p>
-<p>Schedule information, listed and unsorted, really</p>
-<p>Unpack truck data object here</p>
-<p>Needs interactive schedule</p>
-<p>Needs to take ID and do all the things with it</p>
 
 <script>
 
