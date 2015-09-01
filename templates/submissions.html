@@ -3,7 +3,7 @@
 
 <div class="row">
     <!-- <div class="col-xs-0 col-med-3"></div> -->
-    <div class="col-xs-12 col-md-6 col-md-offset-3">
+    <div class="col-xs-12 col-md-4 col-md-offset-4">
         <h1>Tell Us About a Truck!</h1>
 
         <p>Is your favorite truck missing from our database? Oh, SF OpenData, you are beautiful, but you are not all-seeing.</p>
@@ -11,9 +11,15 @@
         <p>We'd love to add that truck to our database. Just submit as much information as you can below, and we'll do the rest. And thanks for caring!</p>
         <div class="input-group">
             <form id="submission-form" action="/truck-submitted" enctype="text/plain">
-                Truck's name <input type="text" name="truck-name" required><br>
-                Truck's website or social media <input type="text" name="truck-url"></br>
-                Other helpful details <input type="text" name="truck-deets" class="long-text"><br>
+                <div class="input-group col-xs-12">
+                    Truck's name <input type="text" class="form-control" name="truck-name" required><br>
+                </div>
+                <div class="input-group col-xs-12">
+                    Truck's website or social media <input type="text" class="form-control" name="truck-url"></br>
+                </div>
+                <div class="input-group col-xs-12">
+                    Other helpful details <input type="text" class="form-control" name="truck-deets" class="long-text"><br>
+                </div><br>
                 <input type="submit" value="Submit that truck!">
             </form>
         </div>

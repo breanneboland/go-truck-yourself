@@ -1,23 +1,5 @@
 {% block content %}
 
-    <div id="truck-schedule-buttons">
-        <p id="schedule-graph">Show me the schedule for...</p>
-
-        {% if schedule_open_close %}
-
-            <div id="button-bank"><button id="everyday-button">Show all</button>
-
-            {% for day in days %}
-
-                {% if schedule_open_close[day] %}
-                    <button class="day-button" id="{{ day }}-button" data-day="{{ day }}">{{ day }}</button>
-                {% endif %}
-
-            {% endfor %}
-            </div>
-        {% endif %}
-    </div>
-
     <div id="truck-schedule-text">
     {% for day in days %} 
 

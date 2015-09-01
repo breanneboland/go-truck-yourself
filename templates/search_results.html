@@ -13,21 +13,21 @@
 
 {% if search_results %}
             <div class="col-xs-3"></div>
-            <div id="#search-results-table" class="col-xs-6">
-                <table class="table-hover table">
-                    <tr>
-                        <th>Truck Name</th>
-                        <th>Truck Description</th>
-                    </tr>
-                {% for result in search_results %}
-                    <tr>
-                        <td class="search-text"><a href="/truck/{{ result.truck_id }}">{{ result.truck_name }}</a></td>
-                        <td class="search-text">{{ result.extra_text }}</td>
-                    </tr>
+                <div id="#search-results-table" class="col-xs-6">
+                    <table class="table-hover table">
+                        <tr>
+                            <th id="table-header-1">Truck Name</th>
+                            <th id="table-header-2">Truck Description</th>
+                        </tr>
+                    {% for result in search_results %}
+                        <tr>
+                            <td class="search-text"><a href="/truck/{{ result.truck_id }}">{{ result.truck_name }}</a></td>
+                            <td class="search-text">{{ result.extra_text }}</td>
+                        </tr>
 
-                {% endfor %}
-                </table>
-            </div>
+                    {% endfor %}
+                    </table>
+                </div>
             <div class="col-xs-3"></div>
 {% else %}
         <div class="col-xs-12">

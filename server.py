@@ -323,16 +323,14 @@ def get_random_truck():
 
     #Add validator here to make sure a schedule query with the returned ID actually has results; if not, choose a new number
     #Still not working. Revisit. 
-    valid_id_returned = False
-    
-    while valid_id_returned == False:
-        rand = random.randrange(0, Truck_schedule.query.count()) 
-        truck_object = Truck.query.filter_by(id=rand).one()
-        # Need try/except here? What's the way to use this error to spur it back through the loop?
 
-        if truck_object:
-            valid_id_returned = True
-            url = "/truck/" + str(rand)
+    random_line = random.randrange(0, Truck_schedule.query.count()) 
+    print "Random line: ", random_line
+    schedule_object = Truck_schedule.query.filter_by(schedule_line_id=random_line).one()
+    print "Schedule object: ", schedule_object
+    selected_truck_id = schedule_object.truck_id
+    print "Selected truck ID: ", selected_truck_id
+    url = "/truck/" + str(selected_truck_id)
     
     return redirect(url)        
 

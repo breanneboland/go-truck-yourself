@@ -6,7 +6,7 @@
 #general-map {
     float: left;
     height: 500px;
-    width: 750px;
+    width: 75%;
 }
 
 #footer {
@@ -17,7 +17,6 @@
 td {
     padding:5px;
 }
-
 
 .center-block {
     display: block;
@@ -54,16 +53,11 @@ nav {
     font-style:normal; 
     font-size: 20px;
     vertical-align: top;   
+    color: #ffffff;
 }
 
-#top-title {
+nav a {
     color: #ffffff;
-    text-decoration: none;
-}
-
-#top-title:hover {
-    color: #ffffff;
-    text-decoration: none;    
 }
 
 h1 {
@@ -102,8 +96,6 @@ table {
     font-style:normal;
 }
 
-
-
 .container-fluid {
     margin:50px;
 }
@@ -120,8 +112,6 @@ table {
     padding: 30px;
 }
 
-
-
 .left-column {
     left:0;
 
@@ -133,22 +123,51 @@ p {
     font-style:normal;
 }
 
-
-
 a {
     color: #ffffff;
-}
-
-.window-content {
-    color: #000000;
-    text-decoration: none;
-}
-
-.window-content:hover {
-    color: #000000;
 }
 
 a:hover {
     color: #ffffff;
 }
 
+#top-title {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#top-title:hover {
+    color: #ffffff;
+    text-decoration: none;    
+}
+
+
+.window-content a {
+    color: #9ED54C;
+    text-align: left;
+}
+
+.window-content a:hover {
+    color: #000000;
+}
+
+input {
+    color: #000000;
+}
+
+td a {
+    color: #9ED54C;
+;
+}
+
+td a:hover {
+    color: #9ED54C;    
+}
+
+#table-header-1 {
+    width: 150px;
+}
+
+#table-header2 {
+    width: 400px;
+}
