@@ -327,7 +327,8 @@ def get_random_truck():
     
     while valid_id_returned == False:
         rand = random.randrange(0, Truck_schedule.query.count()) 
-        truck_object = Truck.query.filter_by(id=rand).first()
+        truck_object = Truck.query.filter_by(id=rand).one()
+        # Need try/except here? What's the way to use this error to spur it back through the loop?
 
         if truck_object:
             valid_id_returned = True
@@ -345,7 +346,7 @@ def test_stuff():
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
-    app.debug = True
+    app.debug = False
     DebugToolbarExtension(app)
 
     connect_to_db(app)

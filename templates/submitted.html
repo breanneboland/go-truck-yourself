@@ -1,9 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Thanks for trucking us!</h1>
-<p class="submission-text">We'll investigate this mystery truck and add it to our database, not unlike Borg assimilation (but with more falafel).</p>
+<div class="row">
+    <h1>Thanks for trucking us!</h1>
+</div>
 
-<p class="submission-text">In the meantime, why not <a href="/search?search-text={{truck_info}}">see what the existing database has for you?</a></p>
+<div class="row">
+    <div class="col-xs-12">
+        <p class="submission-text">We'll investigate this mystery truck and add it to our database, not unlike Borg assimilation (but with more falafel).</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <p class="submission-text">In the meantime, why not <a href="/search?search-text={{truck_info}}">see what the existing database has for you?</a></p>
+    </div>
+</div>
 
 {% endblock %}

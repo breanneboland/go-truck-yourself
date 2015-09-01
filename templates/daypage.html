@@ -1,10 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-<script src="http://maps.googleapis.com/maps/api/js"></script>
 
-<p>The sandbox.</p>
+<div class="row">
+    <div id="day-buttons" class="col-xs-12 col-md-9 col-lg-9 center-block">
+        <center><a href="/day/Sunday" class="button">Sunday</a>
+        <a href="/day/Monday" class="button">Monday</a>
+        <a href="/day/Tuesday" class="button">Tuesday</a>
+        <a href="/day/Wednesday" class="button">Wednesday</a>
+        <a href="/day/Thursday" class="button">Thursday</a>
+        <a href="/day/Friday" class="button">Friday</a>
+        <a href="/day/Saturday" class="button">Saturday</a></center>
+    </div>
+    <div id="col-xs-0 col-md-3 col-lg-3"></div>
+</div>
 
-<div id="general-map"></div>
+<div class="row">
+    <div id="general-map" class="col-xs-12 col-md-9 col-lg-9"></div>
+    <div class="col-xs-0 col-md-3 col-lg-3">
+        <p>Text goes here.</p>
+    </div>
+</div>
 
 <script>
 

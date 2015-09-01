@@ -3,23 +3,42 @@
 <html>
 <head>
   <title></title>
-  <link rel="stylesheet" type="text/css" href="/static/truck.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-</head>
+  <link href='https://fonts.googleapis.com/css?family=Rufina:700,400|Lato' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/truck.css">
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+
+
+
+  </head>
 
 <body>
-  <nav>
-    <a href="/">Logo/home</a>
-    <a href="/add-a-truck">Suggest a Truck</a>
-    <a href="/truck-me">Get a Random Truck</a>
-    <a href="/about-this-project">About This Project</a>
-    <form action="/search"><input type="text" name="search-text" placeholder="Search for trucks"><input type="submit" value="Search!" ></form>
-  </nav>
+  <div id="logo-bar">
+    <span id="top-title"><a href="/"><img src="/static/food-truck.png">Go Truck Yourself</a></span><br>
+      <center><nav id="navigation">
+        <a href="/add-a-truck">Suggest a Truck</a> • 
+        <a href="/truck-me">Get a Random Truck</a> • 
+        <a href="/about-this-project">About This Project</a> 
+        <form action="/search" id="search-bar"><input type="text" name="search-text" placeholder="Search for trucks"><input type="submit" class="hide"></form>
+      </nav></center>
+  </div>
 
-  {% block content %} put your content here {% endblock %}
 
-  <footer>
-    <p>A project by <a href="http://www.breanneboland.com">Breanne Boland</a> for Hackbright Academy's Summer 2015 cohort.</p>
-  </footer>
+
+
+
+
+
+  
+  <div class="container-fluid">
+    <div class="row">
+
+    {% block content %} put your content here {% endblock %}
+  
+    </div>
+  </div>
 </body>
 </html>

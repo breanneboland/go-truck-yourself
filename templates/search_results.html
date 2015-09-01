@@ -1,22 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<p>You searched for {{ search_term }}. Here's what SF OpenData has for you!</p>
+<div class="row">
+    <div class="col-xs-3"></div>
+    <div class="col-xs-6">
+        <p>You searched for <em>{{ search_term }}</em>. Here's what SF OpenData has for you!</p>
+    </div>
+    <div class="col-xs-3"></div>
+</div>
+
+    <div class="row">
+
 {% if search_results %}
-    <div id="#search-results-table"><table>
-        <tr>
-            <th>Truck Name</th>
-            <th>Truck Description</th>
-        </tr>
-    {% for thing in search_results %}
-        <tr>
-            <td class="search-text"><a href="/truck/{{ thing.truck_id }}">{{ thing.truck_name }}</a></td>
-            <td class="search-text">{{ thing.extra_text }}</td>
-        </tr>
-    {% endfor %}
-    </table></div>
-    {% else %}
-    <p>No results! Maybe it's time to consider your own food truck.<a href="http://www.instrucktional.com/">Instrucktional</a> can get you started.</p>
+            <div class="col-xs-3"></div>
+            <div id="#search-results-table" class="col-xs-6">
+                <table class="table-hover table">
+                    <tr>
+                        <th>Truck Name</th>
+                        <th>Truck Description</th>
+                    </tr>
+                {% for result in search_results %}
+                    <tr>
+                        <td class="search-text"><a href="/truck/{{ result.truck_id }}">{{ result.truck_name }}</a></td>
+                        <td class="search-text">{{ result.extra_text }}</td>
+                    </tr>
+
+                {% endfor %}
+                </table>
+            </div>
+            <div class="col-xs-3"></div>
+{% else %}
+        <div class="col-xs-12">
+            <p>No results! Maybe it's time to consider your own food truck.<a href="http://www.instrucktional.com/">Instrucktional</a> can get you started.</p>
+        </div>
+    </div>    
 {% endif %}
 
 <script>

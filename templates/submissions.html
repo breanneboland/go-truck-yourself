@@ -1,18 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Tell Us About a Truck!</h1>
-<p>Is your favorite truck missing from our database? Oh, SF OpenData, you are beautiful, but you are not all-seeing.</p>
-<p>We'd love to add that truck to our database. Just submit as much information as you can below, and we'll do the rest. And thanks for caring!</p>
+<div class="row">
+    <!-- <div class="col-xs-0 col-med-3"></div> -->
+    <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <h1>Tell Us About a Truck!</h1>
 
-<form id="submission-form" action="/truck-submitted" enctype="text/plain">
-    Truck's name <input type="text" name="truck-name" required><br>
-    Truck's website or social media <input type="text" name="truck-url"></br>
-    Other helpful details <input type="text" name="truck-deets" class="long-text"><br>
-    <input type="submit" value="Submit that truck!">
-</form>
+        <p>Is your favorite truck missing from our database? Oh, SF OpenData, you are beautiful, but you are not all-seeing.</p>
 
-<p>Form goes here to request submissions or updates</p>
-<p>Goes to a holding-cell db for review</p>
-
+        <p>We'd love to add that truck to our database. Just submit as much information as you can below, and we'll do the rest. And thanks for caring!</p>
+        <div class="input-group">
+            <form id="submission-form" action="/truck-submitted" enctype="text/plain">
+                Truck's name <input type="text" name="truck-name" required><br>
+                Truck's website or social media <input type="text" name="truck-url"></br>
+                Other helpful details <input type="text" name="truck-deets" class="long-text"><br>
+                <input type="submit" value="Submit that truck!">
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -1,16 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
-<script src="http://maps.googleapis.com/maps/api/js"></script>
 
+    <div class="row">
+        <div id="day-buttons"></div>
+    </div>
+
+    <div class="row">
+        <div id="truck-location-map" class="col-xs-12 col-md-9 col-lg-9 left-column"></div>
 {% if truck %}
-    <h1 id="truck-name">{{ truck.name }}</h1>
-    <p id="truck-desc">This truck offers {{ truck.food_items}}. Check out its schedule and daily locations below.</p>
+        <div class="col-xs-0 col-md-3 col-lg-3 right-truck-column">
+            <h1 id="truck-name">{{ truck.name }}</h1>
+
+            <p id="truck-desc">This truck offers {{ truck.food_items}}. Check out its schedule and daily locations on the map.</p>
+            <div id="truck-info-text"></div>
+
+        </div>
+
+
+{% else %}
+        <div class="col-xs-0 col-md-4 col-lg-4"></div>
+
 {% endif %}
-
-<div id="day-buttons"></div>
-<div id="truck-location-map"></div>
-
-<div id="truck-info-text"></div>
+    </div>
 
 <script>
 
