@@ -1,5 +1,28 @@
-div {
-    overflow:hidden;
+#truck-location-map {
+    height: 500px;
+    width: 75%;
+}
+
+#general-map {
+    float: left;
+    height: 500px;
+    width: 750px;
+}
+
+#footer {
+    width: 100%;
+    vertical-align : bottom;    
+}
+
+td {
+    padding:5px;
+}
+
+
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #logo-bar {
@@ -15,15 +38,6 @@ div {
     color: #ffffff;
 }
 
-.window-content {
-    color: #000000;
-    text-decoration: none;
-}
-
-.window-content:hover {
-    color: #000000;
-}
-
 #search-bar {
     position: absolute; 
     top: 45px;
@@ -35,15 +49,11 @@ div {
 }
 
 nav {
-    font-family:Lato;
+    font-family:Rufina, serif;
     font-weight:400;
     font-style:normal; 
     font-size: 20px;
     vertical-align: top;   
-}
-
-a:hover {
-    color: #ffffff;
 }
 
 #top-title {
@@ -56,46 +66,10 @@ a:hover {
     text-decoration: none;    
 }
 
-
 h1 {
     font-family:Rufina, serif;
     font-weight:700;
 }
-
-p {
-    font-family:Lato;
-    font-weight:400;
-    font-style:normal;
-}
-
-table {
-    font-family:Lato;
-    font-weight:300;
-    font-style:normal;
-}
-
-
-
-.container-fluid {
-    margin:50px;
-}
-
-nav {
-    font-family:Rufina, serif;
-    font-weight:400;
-}
-
-#truck-location-map {
-    height: 500px;
-    width: 75%;
-}
-
-#general-map {
-    float: left;
-    height: 500px;
-    width: 75%;
-}
-/*^ Might look better as full height, 2/3 of page, all text/nav/logo to one side ^*/
 
 .button {
     font-family: Crimson Text;
@@ -118,14 +92,20 @@ nav {
 
 }
 
-.center-block {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 #day-buttons {
     padding: 10px;
+}
+
+table {
+    font-family:Lato;
+    font-weight:300;
+    font-style:normal;
+}
+
+
+
+.container-fluid {
+    margin:50px;
 }
 
 .right-column {
@@ -140,20 +120,35 @@ nav {
     padding: 30px;
 }
 
-td {
-    padding:5px;
-}
+
 
 .left-column {
     left:0;
 
 }
 
-#footer {
-    width: 100%;
-    vertical-align : bottom;    
+p {
+    font-family:Lato;
+    font-weight:400;
+    font-style:normal;
 }
+
+
 
 a {
     color: #ffffff;
 }
+
+.window-content {
+    color: #000000;
+    text-decoration: none;
+}
+
+.window-content:hover {
+    color: #000000;
+}
+
+a:hover {
+    color: #ffffff;
+}
+

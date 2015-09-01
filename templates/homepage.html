@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
 <div class="row">
     <div id="day-buttons" class="col-xs-12 col-md-9 col-lg-9 center-block">
         <center><a href="/day/Sunday" class="button">Sunday</a>
@@ -47,7 +48,7 @@ function initMap() {
     var infoWindow = new google.maps.InfoWindow({
         width: 100
     });
-
+    console.log("This is the line before the get request");
     $.get('/all_truck_info.json', function (truck_schedule_info) {
         console.log(truck_schedule_info);
         var truck, marker, contentString;
@@ -59,9 +60,9 @@ function initMap() {
             marker = new google.maps.Marker({
                 position: new google.maps.LatLng(truck.xCoordinate, truck.yCoordinate),
                 map: map,
-                title: 'Truck ID: ' + truck.truckName,
+                title: 'Truck ID: ' + truck.truckName
             });
-
+            console.log("This is a line in the middle of the marker-creating function; it should show up several thousand times.");
             contentString = (
                 '<div class="window-content">' +
                     '<p><b>Truck name: </b>' + truck.truckName + '</p><p><a href="/truck/' + truck.truckId + '">Learn more about this truck.</a></p><p><b>Day and times:</b> ' + truck.dayOfWeek + ', ' + truck.startTime + ' - ' + truck.endTime + '</p><p><b>Additional truck information: </b>' + truck.locationDescription + ". " + truck.extraText + '</p></div>');
@@ -69,7 +70,7 @@ function initMap() {
             bindInfoWindow(marker, map, infoWindow, contentString);
         }
     });
-
+    console.log("This is the line after the get request");
     function bindInfoWindow(marker, map, infoWindow, html) {
         google.maps.event.addListener(marker, 'click', function () {
             infoWindow.close();
