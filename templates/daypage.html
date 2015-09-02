@@ -15,6 +15,10 @@
 </div>
 
 <div class="row">
+    <input id="map-input" class="controls" type="text" placeholder="Enter your address!">
+    <input type="hidden" id="city2" name="city2" />
+    <input type="hidden" id="cityLat" name="cityLat" />
+    <input type="hidden" id="cityLng" name="cityLng" />  
     <div id="general-map" class="col-xs-12 col-md-9 col-lg-9"></div>
     <div class="col-xs-0 col-md-3 col-lg-3">
         <p>Text goes here.</p>
@@ -22,6 +26,7 @@
 </div>
 
 <script>
+var searchBox, map, geocoder;
 
 function initMap() {
     var map;
@@ -32,7 +37,28 @@ function initMap() {
     map = new google.maps.Map(
         document.getElementById("general-map"),
         mapOptions);
-        // Retrieving the information with AJAX
+
+    var input = document.getElementById('map-input');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+        var newPlace = autocomplete.getPlace();
+
+        document.getElementById('city2').value = newPlace.name;
+        // document.getElementById('cityLat').value = place.geometry.location.lat();
+        // document.getElementById('cityLng').value = place.geometry.location.lng();
+        var newLat = newPlace.geometry.location.lat();
+        var newLong = newPlace.geometry.location.lng();
+        var center = new google.maps.LatLng(newLat, newLong);
+
+        map.setZoom(16);
+
+        map.panTo(center);
+
+        console.log("This function is working!");
+        console.log(newPlace.name);
+        console.log(newPlace.address_components[0].long_name);    
+    });
     
     var infoWindow = new google.maps.InfoWindow({
         width: 100
