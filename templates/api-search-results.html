@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div id="api-results" style="color: #000000">
     {% if truck_name %}
         <p>Your search results for {{truck_name}} and {{day_of_week}}:</p>
     {% else %}
@@ -9,7 +10,7 @@
     
     <div id="api-query-results"></div>
 
-
+</div>
 
 <script>
 console.log('https://data.sfgov.org/resource/jjew-r69b.json?dayofweekstr={{day_of_week}}&applicant={{truck_name}}');

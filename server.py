@@ -325,11 +325,8 @@ def get_random_truck():
     #Still not working. Revisit. 
 
     random_line = random.randrange(0, Truck_schedule.query.count()) 
-    print "Random line: ", random_line
     schedule_object = Truck_schedule.query.filter_by(schedule_line_id=random_line).one()
-    print "Schedule object: ", schedule_object
     selected_truck_id = schedule_object.truck_id
-    print "Selected truck ID: ", selected_truck_id
     url = "/truck/" + str(selected_truck_id)
     
     return redirect(url)        
@@ -337,7 +334,7 @@ def get_random_truck():
 
 @app.route('/test')
 def test_stuff():
-    """Playing with Google Maps marker clustering"""
+    """The all-purpose sandbox that bravely contains possible damage"""
 
     return render_template("test.html")
 
