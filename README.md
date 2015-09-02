@@ -13,6 +13,7 @@ You can learn more about the developer at [her site](http://www.breanneboland.co
  - Data and wrangling it
  - Queries
  - Structure and files
+ - Screenshots
 
 ## Technologies
 Go Truck Yourself is built on a Flask server (which is built with Python). It uses SQL Alchemy to query a PostgreSQL database. The maps are created using the Google Maps API with markers created from a variety of JSON feeds derived from said database. Other assorted goodies: Jinja, JavaScript, jQuery, and entirely too much coffee. 
@@ -68,3 +69,16 @@ This folder contains the various HTML files that are combined by Flask to create
 
 *truck-submissions.txt*  
 This is where submission suggestions are recorded for future access. 
+
+## Screenshots  
+![Homepage](/markdown-images/go-truck-yourself-homepage.png)
+
+![Day of Week Page](/markdown-images/go-truck-yourself-day-page.png)
+
+![Truck Detail Page](/markdown-images/go-truck-yourself-truck-detail-page.png)
+
+![Search Results](/markdown-images/go-truck-yourself-search-results.png)
+
+![Submission Form](/markdown-images/go-truck-yourself-submission-form.png)
+
+![Submission Acceptance](/markdown-images/go-truck-yourself-submission-acceptance.png)
